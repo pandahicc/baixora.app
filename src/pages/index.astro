@@ -1,0 +1,516 @@
+---
+import ArticleCard from '../components/ArticleCard.astro';
+import BrowserFrame from '../components/BrowserFrame.astro';
+import ComparisonTable from '../components/ComparisonTable.astro';
+import CTA from '../components/CTA.astro';
+import FAQ from '../components/FAQ.astro';
+import FeatureCard from '../components/FeatureCard.astro';
+import Icon from '../components/Icon.astro';
+import InstallButton from '../components/InstallButton.astro';
+import ProductShot from '../components/ProductShot.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getHomeGuides, getPublishedGuides } from '../lib/content';
+import { HOME_FAQS } from '../data/faqs';
+import { FEATURES, SITE, SUPPORTED_PAGES, USE_CASES } from '../data/site';
+import {
+  faqSchema,
+  organizationSchema,
+  softwareApplicationSchema,
+  websiteSchema,
+} from '../lib/schema';
+
+const guides = getHomeGuides(await getPublishedGuides(), 3);
+const jsonLd = [
+  organizationSchema(),
+  websiteSchema(),
+  softwareApplicationSchema(),
+  faqSchema(HOME_FAQS),
+];
+
+const steps = [
+  {
+    title: 'Abra uma página pública do TikTok',
+    description:
+      'Resultados de pesquisa, Explorar, uma hashtag ou um perfil de criador. Deixe a página carregar. Não é preciso criar conta na Baixora.',
+  },
+  {
+    title: 'Adicione os vídeos que quer salvar',
+    description:
+      'Use o controle de adicionar em cada card ou a seleção da página. A contagem de itens selecionados fica visível antes de começar.',
+  },
+  {
+    title: 'Escolha ZIP, navegador ou pasta',
+    description:
+      'Lotes podem virar um ZIP ou arquivos MP4 individuais em uma pasta escolhida. Vídeos únicos usam o download normal do navegador.',
+  },
+  {
+    title: 'Acompanhe o progresso e tente de novo',
+    description:
+      'Um item com falha é informado sem interromper o restante da fila. Atualize a página se uma URL de mídia expirar.',
+  },
+];
+
+const gallery = [
+  {
+    id: 'single-download',
+    caption: 'Controle de download em um vídeo público do TikTok.',
+    className: '',
+  },
+  {
+    id: 'explore-list',
+    caption: 'Controles de download nos cards do Explorar.',
+    className: '',
+  },
+  {
+    id: 'search-list',
+    caption: 'Controles de adicionar e baixar nos resultados de pesquisa.',
+    className: '',
+  },
+  {
+    id: 'creator-profile',
+    caption: 'Ponto de entrada de download em um perfil público.',
+    className: '',
+  },
+  {
+    id: 'creator-panel',
+    caption: 'Filtros do criador com ações de exportar e baixar.',
+    className: 'sm:col-span-2',
+  },
+] as const;
+---
+
+<BaseLayout
+  title={SITE.title}
+  description={SITE.description}
+  canonicalPath="/"
+  jsonLd={jsonLd}
+>
+  <section class="relative overflow-hidden border-b border-slate-200 bg-slate-50">
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 bg-grid opacity-60">
+    </div>
+    <div
+      aria-hidden="true"
+      class="pointer-events-none absolute -right-40 -top-32 h-96 w-96 rounded-full bg-brand-200/50 blur-3xl"
+    >
+    </div>
+    <div class="container-page relative py-16 sm:py-20 lg:py-24">
+      <div class="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
+        <div>
+          <p
+            class="mb-5 inline-flex items-center gap-2 rounded-full border border-brand-200 bg-white px-3.5 py-1.5 text-xs font-bold uppercase tracking-[0.14em] text-brand-700 shadow-sm"
+          >
+            <span class="h-1.5 w-1.5 rounded-full bg-signal-500"></span>
+            Extensão para Chrome · pt-BR
+          </p>
+          <h1
+            class="max-w-2xl text-4xl font-bold leading-[1.08] tracking-tight text-slate-950 sm:text-5xl lg:text-6xl"
+          >
+            Baixe vídeos do TikTok em lote, sem marca d’água.
+          </h1>
+          <p class="mt-6 max-w-xl text-lg leading-8 text-slate-600">
+            Baixador de vídeos online e extensão para navegador: salve um vídeo ou uma
+            seleção inteira direto no Chrome.
+          </p>
+          <p class="mt-3 max-w-xl text-base leading-7 text-slate-600">
+            Selecione vídeos de resultados de pesquisa, Explorar, hashtags ou perfis de
+            criadores e baixe tudo em ZIP ou em uma pasta. Também dá para baixar um vídeo
+            por vez e exportar os dados para XLSX.
+          </p>
+          <p class="mt-3 max-w-xl text-sm leading-6 text-slate-500">
+            A saída sem marca d’água e em HD depende da fonte que o TikTok disponibiliza
+            para cada vídeo. A Baixora não recodifica nem edita a mídia.
+          </p>
+          <div class="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+            <InstallButton
+              campaign="homepage-hero"
+              size="lg"
+              label="Adicionar ao Chrome — Grátis"
+              showNote
+            />
+            <a
+              href="#como-funciona"
+              class="inline-flex items-center gap-1.5 text-sm font-semibold text-slate-700 hover:text-brand-700"
+            >
+              Ver como funciona
+              <Icon name="arrow" class="h-4 w-4" />
+            </a>
+          </div>
+          <div class="mt-4">
+            <a
+              href="/recursos/baixar-em-lote/"
+              class="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700 hover:text-brand-800"
+            >
+              Conhecer o download em lote
+              <Icon name="arrow" class="h-4 w-4" />
+            </a>
+          </div>
+          <ul class="mt-8 flex flex-wrap gap-x-5 gap-y-2 text-xs font-medium text-slate-500">
+            <li class="inline-flex items-center gap-1.5">
+              <Icon name="check" class="h-3.5 w-3.5 text-brand-600" />
+              Sem conta na Baixora
+            </li>
+            <li class="inline-flex items-center gap-1.5">
+              <Icon name="check" class="h-3.5 w-3.5 text-brand-600" />
+              23 idiomas na interface
+            </li>
+            <li class="inline-flex items-center gap-1.5">
+              <Icon name="check" class="h-3.5 w-3.5 text-brand-600" />
+              Downloads locais no navegador
+            </li>
+          </ul>
+        </div>
+
+        <div class="relative">
+          <div
+            aria-hidden="true"
+            class="absolute -inset-3 rounded-3xl bg-gradient-to-br from-brand-200/80 via-white to-signal-500/10 blur-xl"
+          >
+          </div>
+          <BrowserFrame url="tiktok.com/search" class="relative">
+            <ProductShot id="search-list" priority showCaption={false} />
+          </BrowserFrame>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-b border-slate-200 bg-white py-8">
+    <div class="container-page">
+      <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <p class="text-xs font-bold uppercase tracking-[0.16em] text-slate-500">
+          Funciona onde você navega
+        </p>
+        <ul class="flex flex-wrap gap-2">
+          {SUPPORTED_PAGES.map((page) => (
+            <li class="rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-medium text-slate-700">
+              {page}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-b border-slate-200 bg-white py-16 sm:py-20">
+    <div class="container-page">
+      <SectionHeading
+        eyebrow="Recursos principais"
+        title="Primeiro o lote. Depois, o resto do fluxo."
+        description="Uma pesquisa inteira, um perfil de criador, uma novela curta ou um único vídeo. A Baixora mantém o trabalho na página que você já abriu."
+      />
+      <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-6">
+        {FEATURES.map((feature, index) => (
+          <div
+            class:list={[
+              'h-full',
+              feature.featured ? 'sm:col-span-2 lg:col-span-6' : 'lg:col-span-3',
+            ]}
+          >
+            <FeatureCard feature={feature} emphasized={feature.featured} />
+          </div>
+        ))}
+      </div>
+      <p class="mt-6 max-w-3xl text-sm leading-6 text-slate-500">
+        Cada recurso depende do que a página pública expõe. A Baixora não contorna login,
+        CAPTCHA, bloqueio regional, DRM ou outros controles de acesso.{' '}
+        <a href="/recursos/" class="font-semibold text-brand-700 hover:underline">
+          Ver todos os recursos.
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-slate-50 py-16 sm:py-20">
+    <div class="container-page">
+      <div class="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+        <div>
+          <SectionHeading
+            eyebrow="Download em lote"
+            title="Do resultado da busca para uma pasta cheia de vídeos."
+            description="O lote é o coração da Baixora: você define a seleção na página, revisa a contagem e escolhe como os arquivos chegam ao computador."
+          />
+          <div class="mt-7 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
+            <a
+              href="/recursos/baixar-em-lote/"
+              class="inline-flex items-center gap-1.5 rounded-full bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-brand-700"
+            >
+              Ver o recurso em lote
+              <Icon name="arrow" class="h-4 w-4" />
+            </a>
+            <a
+              href="/guias/como-baixar-videos-do-tiktok-em-lote/"
+              class="text-sm font-semibold text-brand-700 hover:underline"
+            >
+              Ler o guia de download em lote
+            </a>
+          </div>
+        </div>
+        <ol class="space-y-4">
+          {[
+            ['Abra uma lista compatível', 'Pesquisa, Explorar, hashtag ou perfil de criador. Espere os cards carregarem.'],
+            ['Monte a seleção', 'Adicione vídeos individualmente ou use os controles de seleção da página.'],
+            ['Confira a contagem', 'A seleção é a fonte de verdade para o download e para a exportação.'],
+            ['Escolha ZIP ou pasta', 'Aprove o aviso de pasta, quando necessário, e acompanhe o progresso do lote.'],
+            ['Revise as falhas', 'Itens com falha são separados; atualize a página se a URL de mídia expirar.'],
+          ].map(([step, text], index) => (
+            <li class="flex gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+              <span class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-600 text-sm font-bold text-white">
+                {index + 1}
+              </span>
+              <div>
+                <h3 class="text-sm font-bold text-slate-950">{step}</h3>
+                <p class="mt-1.5 text-sm leading-6 text-slate-600">{text}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+
+      <div class="mt-10 grid gap-4 sm:grid-cols-2">
+        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand-700">
+            <Icon name="zip" class="h-5 w-5" />
+          </span>
+          <h3 class="mt-4 text-base font-bold text-slate-950">Baixar um ZIP</h3>
+          <p class="mt-2 text-sm leading-6 text-slate-600">
+            Melhor para um lote menor que você quer mover como um único arquivo. O ZIP é
+            gerado localmente e salvo pelo navegador.
+          </p>
+        </div>
+        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand-700">
+            <Icon name="folder" class="h-5 w-5" />
+          </span>
+          <h3 class="mt-4 text-base font-bold text-slate-950">Salvar em uma pasta</h3>
+          <p class="mt-2 text-sm leading-6 text-slate-600">
+            Melhor para lotes grandes ou revisão posterior. O navegador pede que você
+            escolha uma pasta e conceda permissão de escrita.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white py-16 sm:py-20">
+    <div class="container-page">
+      <div class="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+        <SectionHeading
+          eyebrow="Por que a Baixora"
+          title="Feita para baixar rápido, não para criar outro dashboard."
+          description="Sem login, sem upload e sem rastreador em segundo plano. A extensão trabalha com a página do TikTok que você abriu e grava os arquivos no navegador ou em uma pasta escolhida."
+        />
+        <div class="grid gap-4 sm:grid-cols-2">
+          {[
+            ['Sem login na Baixora', 'Só páginas públicas; o TikTok ainda pode pedir login para parte do conteúdo.'],
+            ['Lote com ZIP ou pasta', 'Escolha o formato que combina com o tamanho da seleção.'],
+            ['Sem marca d’água quando disponível', 'A Baixora salva a fonte limpa quando o TikTok expõe uma.'],
+            ['23 idiomas na interface', 'A extensão segue o idioma do seu navegador.'],
+          ].map(([heading, text]) => (
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+              <h3 class="text-sm font-bold text-slate-950">{heading}</h3>
+              <p class="mt-2 text-sm leading-6 text-slate-600">{text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-slate-200 bg-white py-16 sm:py-20" id="como-funciona">
+    <div class="container-page">
+      <SectionHeading
+        eyebrow="Como funciona"
+        title="Quatro passos, todos na página que você abriu."
+        description="Sem upload separado, sem painel de conta e sem biblioteca escondida."
+      />
+      <ol class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          steps.map((step, index) => (
+            <li class="rounded-2xl border border-slate-200 bg-slate-50 p-6">
+              <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-brand-600 text-sm font-bold text-white">
+                {index + 1}
+              </span>
+              <h3 class="mt-4 text-base font-bold text-slate-950">{step.title}</h3>
+              <p class="mt-2 text-sm leading-6 text-slate-600">{step.description}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="bg-white py-16 sm:py-20">
+    <div class="container-page">
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <SectionHeading
+          eyebrow="Prévia do produto"
+          title="Veja o download, o lote e a exportação."
+          description="Capturas atuais do produto. A interface da extensão segue o idioma do navegador e também está disponível em pt-BR."
+        />
+        <a
+          href="/recursos/"
+          class="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700 hover:text-brand-800"
+        >
+          Explorar os recursos
+          <Icon name="arrow" class="h-4 w-4" />
+        </a>
+      </div>
+      <div class="mt-8 grid gap-6 sm:grid-cols-2">
+        {
+          gallery.map((shot) => (
+            <ProductShot
+              id={shot.id}
+              caption={shot.caption}
+              className={shot.className}
+              priority
+            />
+          ))
+        }
+      </div>
+      <p class="mt-4 text-xs leading-5 text-slate-500">
+        As capturas mostram a interface em inglês nesta versão do site. Elas não prometem
+        que todo vídeo tem uma fonte sem marca d’água ou em HD.
+      </p>
+    </div>
+  </section>
+
+  <section class="border-y border-slate-200 bg-slate-50 py-16 sm:py-20">
+    <div class="container-page">
+      <SectionHeading
+        eyebrow="Casos de uso"
+        title="Para quem trabalha com conteúdo público do TikTok."
+        description="Salve os vídeos necessários para revisão, referência ou uma pasta do time — e mantenha a página de origem junto deles."
+      />
+      <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          USE_CASES.map((useCase) => (
+            <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+              <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand-700">
+                <Icon name={useCase.icon} class="h-5 w-5" />
+              </span>
+              <h3 class="mt-4 text-base font-bold text-slate-950">{useCase.title}</h3>
+              <p class="mt-2 text-sm leading-6 text-slate-600">{useCase.description}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white py-16 sm:py-20">
+    <div class="container-page">
+      <SectionHeading
+        eyebrow="Grátis e Premium"
+        title="Comece com um vídeo. Libere o fluxo em lote quando precisar."
+        description="A Baixora é grátis para instalar. O Premium é uma assinatura ativada dentro da extensão; este site não exibe preços porque a oferta pode mudar."
+      />
+      <div class="mt-10">
+        <ComparisonTable
+          note="Os limites e detalhes atuais aparecem na extensão. A disponibilidade das páginas e os limites do próprio TikTok continuam valendo no Premium."
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-slate-200 bg-white py-16 sm:py-20">
+    <div class="container-page">
+      <div class="rounded-3xl border border-brand-200 bg-brand-50/60 p-6 sm:p-10">
+        <div class="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+          <div>
+            <p class="text-xs font-bold uppercase tracking-[0.16em] text-brand-700">
+              Local por padrão
+            </p>
+            <h2 class="mt-3 text-3xl font-bold tracking-tight text-slate-950">
+              Os dados da página ficam no seu navegador.
+            </h2>
+            <p class="mt-4 text-base leading-7 text-slate-600">
+              A Baixora processa os dados públicos que consegue ler no navegador. Não
+              envia dados de página para servidores da Baixora. As requisições de rede se
+              limitam à mídia que você escolhe baixar, aos dados da página do TikTok
+              necessários ao fluxo e à validação da licença Premium.
+            </p>
+            <a
+              href="/privacidade/"
+              class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700 hover:text-brand-800"
+            >
+              Ler a Política de Privacidade
+              <Icon name="arrow" class="h-4 w-4" />
+            </a>
+          </div>
+          <ul class="grid gap-4 sm:grid-cols-3">
+            <li class="rounded-2xl bg-white p-5 shadow-sm">
+              <Icon name="shield" class="h-5 w-5 text-brand-700" />
+              <p class="mt-3 text-sm font-bold text-slate-900">Processamento local</p>
+              <p class="mt-1.5 text-xs leading-5 text-slate-600">
+                Dados de página não são enviados à Baixora.
+              </p>
+            </li>
+            <li class="rounded-2xl bg-white p-5 shadow-sm">
+              <Icon name="download" class="h-5 w-5 text-brand-700" />
+              <p class="mt-3 text-sm font-bold text-slate-900">Downloads iniciados por você</p>
+              <p class="mt-1.5 text-xs leading-5 text-slate-600">
+                Os arquivos são pedidos só quando você inicia o download.
+              </p>
+            </li>
+            <li class="rounded-2xl bg-white p-5 shadow-sm">
+              <Icon name="info" class="h-5 w-5 text-brand-700" />
+              <p class="mt-3 text-sm font-bold text-slate-900">Sem telemetria na extensão</p>
+              <p class="mt-1.5 text-xs leading-5 text-slate-600">
+                A extensão não contém analytics nem telemetria.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {
+    guides.length > 0 && (
+      <section class="border-y border-slate-200 bg-slate-50 py-16 sm:py-20">
+        <div class="container-page">
+          <div class="flex flex-wrap items-end justify-between gap-4">
+            <SectionHeading
+              eyebrow="Guias"
+              title="Notas práticas para baixar vídeos públicos."
+              description="Comece pelo fluxo que você precisa e confira os limites antes de usar os arquivos."
+            />
+            <a
+              href="/guias/"
+              class="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700 hover:text-brand-800"
+            >
+              Todos os guias
+              <Icon name="arrow" class="h-4 w-4" />
+            </a>
+          </div>
+          <div class="mt-8 grid gap-5 md:grid-cols-3">
+            {guides.map((guide) => <ArticleCard entry={guide} />)}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <section class="bg-white py-16 sm:py-20">
+    <div class="container-page">
+      <SectionHeading
+        eyebrow="FAQ"
+        title="Perguntas, respondidas."
+        description="O resumo do que a Baixora faz, do que precisa e do que ela deliberadamente não promete."
+        align="center"
+      />
+      <div class="mx-auto mt-10 max-w-4xl">
+        <FAQ items={HOME_FAQS} />
+      </div>
+    </div>
+  </section>
+
+  <CTA
+    campaign="homepage-final"
+    title="Transforme uma página de vídeos em uma pasta."
+    description="Instale a Baixora, abra uma página pública compatível do TikTok e baixe um vídeo ou uma seleção. Baixe apenas conteúdo que você tem o direito de usar."
+    secondaryHref="/guias/"
+    secondaryLabel="Ler os guias primeiro"
+  />
+</BaseLayout>

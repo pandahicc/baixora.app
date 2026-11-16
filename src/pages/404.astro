@@ -1,0 +1,45 @@
+---
+import Icon from '../components/Icon.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = 'Página não encontrada — Baixora';
+const description =
+  'A página que você procura não existe. Volte para a página inicial, recursos, guias ou suporte da Baixora.';
+---
+
+<BaseLayout title={title} description={description} noindex canonicalPath="/404/">
+  <section class="bg-slate-50 py-20 sm:py-28">
+    <div class="container-page">
+      <div class="mx-auto max-w-2xl text-center">
+        <p class="text-xs font-bold uppercase tracking-[0.18em] text-brand-600">
+          404
+        </p>
+        <h1 class="mt-4 text-4xl font-bold tracking-tight text-slate-950 sm:text-5xl">
+          Página não encontrada
+        </h1>
+        <p class="mt-4 text-lg leading-8 text-slate-600">
+          A página que você procura não existe ou pode ter mudado de lugar. As partes úteis
+          do site continuam aqui.
+        </p>
+        <div class="mt-8 flex flex-wrap justify-center gap-3">
+          <a href="/" class="inline-flex items-center gap-2 rounded-full bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-brand-700">
+            <Icon name="home" class="h-4 w-4" />
+            Início
+          </a>
+          <a href="/recursos/" class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-800 hover:border-brand-300 hover:bg-brand-50">
+            Recursos
+          </a>
+          <a href="/recursos/baixar-em-lote/" class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-800 hover:border-brand-300 hover:bg-brand-50">
+            Baixar em lote
+          </a>
+          <a href="/guias/" class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-800 hover:border-brand-300 hover:bg-brand-50">
+            Guias
+          </a>
+          <a href="/suporte/" class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-800 hover:border-brand-300 hover:bg-brand-50">
+            Suporte
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

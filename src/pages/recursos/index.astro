@@ -1,0 +1,133 @@
+---
+import CTA from '../../components/CTA.astro';
+import FeatureCard from '../../components/FeatureCard.astro';
+import Icon from '../../components/Icon.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { FEATURES, SITE } from '../../data/site';
+import { breadcrumbSchema, itemListSchema } from '../../lib/schema';
+
+const title = 'Recursos — extensão para baixar vídeos do TikTok | Baixora';
+const description =
+  'Conheça os recursos da extensão Baixora para baixar vídeos do TikTok: lote, perfis de criadores, novelas curtas, XLSX e download único.';
+const jsonLd = [
+  breadcrumbSchema([
+    { name: 'Início', href: '/' },
+    { name: 'Recursos', href: '/recursos/' },
+  ]),
+  itemListSchema(
+    FEATURES.map((feature) => ({
+      name: feature.title,
+      href: feature.href,
+    })),
+  ),
+];
+
+const principles = [
+  {
+    icon: 'shield',
+    title: 'Apenas páginas públicas',
+    text: 'A Baixora trabalha com as páginas públicas do TikTok que você abre. Não contorna login, CAPTCHA, bloqueio regional, DRM ou outros controles de acesso.',
+  },
+  {
+    icon: 'download',
+    title: 'Downloads iniciados por você',
+    text: 'Os arquivos são pedidos só quando você inicia um download. A Baixora não roda um rastreador em segundo plano nem monta uma biblioteca escondida.',
+  },
+  {
+    icon: 'info',
+    title: 'Disponibilidade não é autorização',
+    text: 'Um vídeo público pode estar tecnicamente disponível e ainda assim não ter licença para reuso. Confirme os direitos antes de republicar ou usar comercialmente.',
+  },
+];
+---
+
+<BaseLayout title={title} description={description} canonicalPath="/recursos/" jsonLd={jsonLd}>
+  <section class="relative overflow-hidden border-b border-slate-200 bg-slate-50">
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 bg-grid opacity-50">
+    </div>
+    <div class="container-page relative py-16 sm:py-20">
+      <p class="text-xs font-bold uppercase tracking-[0.18em] text-brand-600">
+        Recursos
+      </p>
+      <h1 class="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-slate-950 sm:text-5xl">
+        Recursos da extensão para baixar vídeos
+      </h1>
+      <p class="mt-5 max-w-2xl text-lg leading-8 text-slate-600">
+        A Baixora é uma extensão para baixar vídeos do TikTok com foco em lote. O fluxo
+        começa em uma lista ou perfil, passa pela seleção e termina em uma pasta, um ZIP
+        ou uma planilha. As outras funções completam esse caminho.
+      </p>
+      <div class="mt-8 flex flex-wrap items-center gap-4">
+        <a
+          href="/recursos/baixar-em-lote/"
+          class="inline-flex items-center gap-1.5 rounded-full bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-brand-700"
+        >
+          Começar pelo download em lote
+          <Icon name="arrow" class="h-4 w-4" />
+        </a>
+        <a
+          href="/guias/"
+          class="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700 hover:text-brand-800"
+        >
+          Ver os guias práticos
+          <Icon name="arrow" class="h-4 w-4" />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white py-16 sm:py-20">
+    <div class="container-page">
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-6">
+        {FEATURES.map((feature) => (
+          <div
+            class:list={[
+              'h-full',
+              feature.featured ? 'sm:col-span-2 lg:col-span-6' : 'lg:col-span-3',
+            ]}
+          >
+            <FeatureCard feature={feature} emphasized={feature.featured} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-slate-200 bg-slate-50 py-16 sm:py-20">
+    <div class="container-page">
+      <SectionHeading
+        eyebrow="Princípios compartilhados"
+        title="Os limites fazem parte do produto."
+        description="A Baixora é deliberadamente limitada a páginas públicas e downloads iniciados pelo usuário. Entender esses limites é parte de usar bem a extensão."
+      />
+      <div class="mt-10 grid gap-5 md:grid-cols-3">
+        {
+          principles.map((principle) => (
+            <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+              <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand-700">
+                <Icon name={principle.icon} class="h-5 w-5" />
+              </span>
+              <h2 class="mt-4 text-base font-bold text-slate-950">{principle.title}</h2>
+              <p class="mt-2 text-sm leading-6 text-slate-600">{principle.text}</p>
+            </div>
+          ))
+        }
+      </div>
+      <p class="mt-8 max-w-3xl text-sm leading-6 text-slate-500">
+        A Baixora é uma extensão de navegador independente e não é afiliada, endossada ou
+        patrocinada pelo TikTok ou pela ByteDance. Consulte a{' '}
+        <a href="/privacidade/" class="font-semibold text-brand-700 hover:underline">Política de Privacidade</a>{' '}
+        para os detalhes de tratamento de dados. A versão atual da extensão é {SITE.version}.
+      </p>
+    </div>
+  </section>
+
+  <CTA
+    campaign="features-index"
+    title="Abra uma página pública e use o fluxo que precisar."
+    description="O download de um vídeo é grátis. O Premium libera o fluxo completo em lote para listas, perfis de criadores, novelas curtas e exportação XLSX."
+    secondaryHref="/guias/"
+    secondaryLabel="Ler os guias"
+  />
+</BaseLayout>

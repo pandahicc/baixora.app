@@ -1,0 +1,171 @@
+---
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import CTA from '../components/CTA.astro';
+import Icon from '../components/Icon.astro';
+import InstallButton from '../components/InstallButton.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { breadcrumbSchema } from '../lib/schema';
+import { SITE, SUPPORTED_PAGES } from '../data/site';
+
+const title = 'Sobre a Baixora — extensão para baixar vídeos';
+const description =
+  'A Baixora é uma extensão independente para baixar vídeos públicos do TikTok em lote, com exportação XLSX. Veja o escopo e os limites.';
+const jsonLd = [
+  breadcrumbSchema([
+    { name: 'Início', href: '/' },
+    { name: 'Sobre', href: '/sobre/' },
+  ]),
+];
+---
+
+<BaseLayout title={title} description={description} canonicalPath="/sobre/" jsonLd={jsonLd}>
+  <section class="border-b border-slate-200 bg-slate-50">
+    <div class="container-page py-10 sm:py-14">
+      <Breadcrumbs
+        items={[
+          { name: 'Início', href: '/' },
+          { name: 'Sobre', href: '/sobre/' },
+        ]}
+      />
+      <div class="mt-8 max-w-3xl">
+        <p class="text-xs font-bold uppercase tracking-[0.18em] text-brand-600">
+          Sobre
+        </p>
+        <h1 class="mt-4 text-4xl font-bold tracking-tight text-slate-950 sm:text-5xl">
+          Sobre a Baixora
+        </h1>
+        <p class="mt-5 text-lg leading-8 text-slate-600">
+          A Baixora é uma extensão independente para salvar vídeos públicos do TikTok —
+          um por vez, uma página de cada vez ou uma lista de episódios de cada vez — e
+          para levar os metadados públicos selecionados para uma planilha.
+        </p>
+        <div class="mt-7">
+          <InstallButton campaign="about" label="Adicionar ao Chrome" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container-page grid gap-12 py-12 sm:py-16 lg:grid-cols-[minmax(0,1fr)_18rem]">
+    <div class="prose max-w-3xl">
+      <p>
+        O produto nasce de uma restrição simples: trabalhar com a página pública que a
+        pessoa abriu e com os dados que essa página disponibiliza. A Baixora não oferece
+        um banco de dados escondido, um serviço de download no servidor ou um arquivo
+        histórico completo do TikTok.
+      </p>
+
+      <h2>O que priorizamos</h2>
+      <ul>
+        <li><strong>Velocidade na página.</strong> O download começa na página que você já está vendo, sem upload separado nem conta.</li>
+        <li><strong>Arquivos previsíveis.</strong> Formatos de nome, saída em ZIP ou pasta e relatório de progresso mantêm os arquivos reconhecíveis.</li>
+        <li><strong>Processamento local.</strong> Os dados da página são tratados no navegador e não são enviados a servidores da Baixora.</li>
+        <li><strong>Limites honestos.</strong> A disponibilidade depende da página, e baixar não é o mesmo que ter licença para reusar.</li>
+      </ul>
+
+      <h2>Páginas compatíveis</h2>
+      <p>
+        A Baixora oferece suporte a páginas públicas de vídeo, perfis de criadores,
+        resultados de pesquisa, Explorar, hashtags, novelas curtas e as abas Início e
+        Seguindo. A interface está disponível em 23 idiomas e segue o idioma do navegador.
+      </p>
+      <ul>
+        {SUPPORTED_PAGES.map((page) => (
+          <li>{page}</li>
+        ))}
+      </ul>
+
+      <h2>O que a Baixora deliberadamente não faz</h2>
+      <ul>
+        <li>Não promete um arquivo completo de um criador nem todos os vídeos do TikTok.</li>
+        <li>Não contorna login, CAPTCHA, bloqueio regional, DRM ou limites de taxa.</li>
+        <li>Não recodifica mídia nem garante uma fonte sem marca d’água ou em HD para todo vídeo.</li>
+        <li>Não estima vendas, receita, investimento em anúncios ou dados demográficos de audiência.</li>
+        <li>Não junta downloads ou exportações entre páginas, abas ou sessões.</li>
+        <li>Não reivindica vínculo com o TikTok ou a ByteDance.</li>
+      </ul>
+
+      <h2>Build atual</h2>
+      <p>
+        Este site faz referência à versão <strong>{SITE.version}</strong> da extensão. A
+        página da Chrome Web Store é a fonte de verdade para o build público atual, os
+        detalhes do plano e a disponibilidade. Quando a listagem mudar, a versão e as
+        descrições deste site devem ser revisadas.
+      </p>
+
+      <h2>Independência</h2>
+      <p>
+        A Baixora é um produto independente. Não é afiliada, endossada ou patrocinada pelo
+        TikTok ou pela ByteDance. TikTok e marcas relacionadas pertencem aos respectivos
+        donos. A Baixora não concede permissão para usar nenhum vídeo; essa permissão deve
+        vir do detentor dos direitos ou da lei aplicável.
+      </p>
+
+      <div class="not-prose mt-10 rounded-2xl border border-brand-200 bg-brand-50/70 p-6">
+        <div class="flex gap-4">
+          <Icon name="info" class="mt-0.5 h-5 w-5 shrink-0 text-brand-700" />
+          <div>
+            <p class="text-sm font-bold text-slate-950">Uma nota sobre o site</p>
+            <p class="mt-2 text-sm leading-6 text-slate-700">
+              Este é um site estático de produto. Ele não inclui formulário de contato,
+              sistema de conta ou checkout web. O Google Analytics só é carregado quando um
+              ID de medição é configurado para o build, conforme descrito na{' '}
+              <a href="/privacidade/" class="font-semibold text-brand-700 hover:underline">Política de Privacidade</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <aside class="space-y-5">
+      <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+        <h2 class="text-sm font-bold text-slate-950">Em resumo</h2>
+        <dl class="mt-3 space-y-3 text-sm">
+          <div>
+            <dt class="text-slate-500">Produto</dt>
+            <dd class="font-semibold text-slate-900">Extensão para Chrome</dd>
+          </div>
+          <div>
+            <dt class="text-slate-500">Listagem na loja</dt>
+            <dd class="font-semibold text-slate-900">{SITE.storeTitle}</dd>
+          </div>
+          <div>
+            <dt class="text-slate-500">Versão atual</dt>
+            <dd class="font-semibold text-slate-900">{SITE.version}</dd>
+          </div>
+          <div>
+            <dt class="text-slate-500">Plataforma</dt>
+            <dd class="font-semibold text-slate-900">TikTok, apenas páginas públicas</dd>
+          </div>
+          <div>
+            <dt class="text-slate-500">Interface</dt>
+            <dd class="font-semibold text-slate-900">23 idiomas</dd>
+          </div>
+          <div>
+            <dt class="text-slate-500">Processamento</dt>
+            <dd class="font-semibold text-slate-900">Dados locais no navegador</dd>
+          </div>
+        </dl>
+      </div>
+      <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+        <h2 class="text-sm font-bold text-slate-950">Relacionado</h2>
+        <ul class="mt-3 space-y-2 text-sm">
+          <li><a href="/recursos/" class="text-slate-600 hover:text-brand-700">Recursos</a></li>
+          <li><a href="/guias/" class="text-slate-600 hover:text-brand-700">Guias</a></li>
+          <li><a href="/planos/" class="text-slate-600 hover:text-brand-700">Planos</a></li>
+          <li><a href="/privacidade/" class="text-slate-600 hover:text-brand-700">Política de Privacidade</a></li>
+          <li><a href="/suporte/" class="text-slate-600 hover:text-brand-700">Suporte</a></li>
+          <li><a href="/novidades/" class="text-slate-600 hover:text-brand-700">Novidades</a></li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+
+  <CTA
+    campaign="about-final"
+    title="Abra uma página pública e comece com um download."
+    description="Instale a Baixora e experimente o fluxo grátis. O Premium libera o fluxo completo em lote quando você precisar."
+    secondaryHref="/guias/"
+    secondaryLabel="Ler os guias"
+  />
+</BaseLayout>

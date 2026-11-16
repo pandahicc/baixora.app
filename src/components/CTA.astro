@@ -1,0 +1,64 @@
+---
+import InstallButton from './InstallButton.astro';
+import Icon from './Icon.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  campaign?: string;
+  primaryLabel?: string;
+  secondaryHref?: string;
+  secondaryLabel?: string;
+}
+
+const {
+  title = 'Salve os vídeos do TikTok que você precisa, sem sair da página.',
+  description = 'Instale a Baixora, abra uma página pública compatível e baixe um vídeo ou uma seleção. As funções principais são grátis; o Premium libera o fluxo completo em lote.',
+  campaign = 'cta',
+  primaryLabel = 'Adicionar ao Chrome — Grátis',
+  secondaryHref,
+  secondaryLabel,
+} = Astro.props;
+---
+
+<section class="py-16 sm:py-20">
+  <div class="container-page">
+    <div class="relative overflow-hidden rounded-3xl bg-brand-950 px-6 py-12 shadow-xl sm:px-12 sm:py-16">
+      <div
+        aria-hidden="true"
+        class="pointer-events-none absolute inset-0 bg-grid opacity-20"
+      >
+      </div>
+      <div class="relative max-w-3xl">
+        <p class="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-brand-300">
+          Baixora
+        </p>
+        <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+          {title}
+        </h2>
+        <p class="mt-4 text-base leading-7 text-brand-100 sm:text-lg">
+          {description}
+        </p>
+        <div class="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+          <InstallButton
+            campaign={campaign}
+            label={primaryLabel}
+            variant="inverse"
+            size="lg"
+          />
+          {
+            secondaryHref && secondaryLabel && (
+              <a
+                href={secondaryHref}
+                class="inline-flex items-center gap-1.5 text-sm font-semibold text-white underline decoration-brand-300 underline-offset-4 hover:text-brand-100"
+              >
+                {secondaryLabel}
+                <Icon name="arrow" class="h-4 w-4" />
+              </a>
+            )
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,98 @@
+---
+title: Como exportar dados de vídeos do TikTok para o Excel
+description: "Exporte os vídeos selecionados para uma planilha XLSX, entenda as 15 colunas, preserve o contexto da amostra e evite leituras exageradas."
+pubDate: 2026-11-16
+updatedDate: 2026-11-16
+readingTime: 8
+category: Exportação de dados
+featureHref: /recursos/exportar-xlsx/
+featureLabel: Exportação XLSX
+related:
+  - como-baixar-videos-de-um-criador-do-tiktok
+  - como-baixar-videos-do-tiktok-em-lote
+  - como-baixar-videos-do-tiktok
+takeaways:
+  - A exportação contém os vídeos selecionados, não toda a plataforma.
+  - São 15 colunas que descrevem os campos públicos que a página expõe.
+  - Valores ausentes ficam em branco; não são zero nem estimativas.
+  - Mantenha a URL de origem, a data e os filtros junto da planilha.
+draft: false
+---
+
+import Callout from '../../components/Callout.astro';
+
+Uma planilha faz uma amostra parecer autoritativa. Isso é útil quando a amostra está bem definida e perigoso quando não está. A exportação XLSX da Baixora é intencionalmente estreita: ela grava os registros selecionados e os campos públicos que a página expõe. Não estima vendas, não junta páginas e não preenche valores ausentes.
+
+Este guia cobre a seleção, as 15 colunas, as verificações antes de compartilhar o arquivo e os limites que devem acompanhar a planilha.
+
+## O que a planilha contém
+
+A exportação inclui os campos que a página pública fornece no momento da execução:
+
+- ID do vídeo;
+- URL da capa;
+- descrição;
+- URL de detalhe;
+- URL de mídia;
+- isTop (quando a página marca o item como fixado);
+- data de criação;
+- ID da playlist;
+- nome da playlist;
+- duração;
+- contagem de reproduções;
+- contagem de curtidas;
+- contagem de salvamentos;
+- contagem de comentários;
+- contagem de compartilhamentos.
+
+Os campos de engajamento e playlist aparecem apenas quando disponíveis. Valores ausentes ficam em branco.
+
+<Callout tone="note" title="Recorte, não censo">
+  A planilha descreve a seleção feita em uma execução. Ela não representa todo o TikTok,
+  todo o perfil ou todo o histórico de um criador.
+</Callout>
+
+## Selecione e exporte
+
+1. Abra o fluxo de lista, criador ou novela curta.
+2. Selecione os vídeos que devem entrar na planilha.
+3. Confira a contagem selecionada — ela é a quantidade esperada de linhas.
+4. Use a ação de exportar no painel da extensão.
+5. Salve o arquivo .xlsx e abra no Excel, Google Sheets ou outro aplicativo compatível.
+
+A seleção é o que define o conteúdo. Se a página mudar e a seleção for limpa, os registros precisam ser marcados novamente.
+
+## Leia os dados com cuidado
+
+Antes de compartilhar ou tirar conclusões, verifique:
+
+- **Data da coleta** — as contagens são um retrato do momento, não um feed ao vivo.
+- **Escopo** — quantos itens foram selecionados e em qual página ou perfil.
+- **Filtros** — duração, período, título ou métricas mínimas podem ter recortado a lista.
+- **Campos vazios** — ausência de valor não significa zero; significa que a página não expôs o campo.
+- **Contexto de playlist** — o mesmo vídeo pode aparecer em mais de uma playlist.
+
+Anote essas informações ao lado do arquivo. Uma planilha sem contexto é fácil de interpretar errado.
+
+<Callout tone="warning" title="Não transforme amostra em tendência">
+  Comparar duas planilhas de datas diferentes pode ser útil, mas não transforma a
+  exportação em uma série histórica. A Baixora não atualiza contagens em segundo plano.
+</Callout>
+
+## O que não está na planilha
+
+A exportação não inclui:
+
+- vendas, receita, investimento em anúncios ou conversão;
+- dados demográficos de audiência;
+- estimativas de alcance ou crescimento;
+- registros de outras páginas, abas ou sessões;
+- conteúdo privado ou que a página não expôs.
+
+Se uma pergunta de negócio depende de dados que não estão na planilha, a resposta não deve ser inferida a partir dela.
+
+## Direitos e privacidade
+
+A planilha pode conter identificadores de vídeos e de criadores, além de métricas públicas. Use os dados de forma compatível com a lei aplicável, os termos do TikTok e as expectativas das pessoas envolvidas. Não publique uma planilha com dados pessoais sem base legal e cuidado.
+
+Para o recurso completo, consulte [exportação XLSX](/recursos/exportar-xlsx/). Se a origem dos dados é um perfil, o guia de [vídeos de criadores](/guias/como-baixar-videos-de-um-criador-do-tiktok/) explica os canais e filtros.

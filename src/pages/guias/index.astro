@@ -1,0 +1,156 @@
+---
+import ArticleCard from '../../components/ArticleCard.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CTA from '../../components/CTA.astro';
+import Icon from '../../components/Icon.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getPublishedGuides } from '../../lib/content';
+import { breadcrumbSchema, itemListSchema } from '../../lib/schema';
+
+const title = 'Guias para baixar vídeos do TikTok — Baixora';
+const description =
+  'Guias práticos para baixar vídeos do TikTok, fazer downloads em lote, salvar vídeos de criadores e exportar dados para o Excel.';
+
+const guides = await getPublishedGuides();
+const featured = guides.find((guide) => guide.data.featured) ?? guides[0] ?? null;
+const rest = guides.filter((guide) => guide.id !== featured?.id);
+const jsonLd = [
+  breadcrumbSchema([
+    { name: 'Início', href: '/' },
+    { name: 'Guias', href: '/guias/' },
+  ]),
+  itemListSchema(
+    guides.map((guide) => ({
+      name: guide.data.title,
+      href: `/guias/${guide.id}/`,
+    })),
+  ),
+];
+---
+
+<BaseLayout title={title} description={description} canonicalPath="/guias/" jsonLd={jsonLd}>
+  <section class="border-b border-slate-200 bg-slate-50">
+    <div class="container-page py-10 sm:py-14">
+      <Breadcrumbs
+        items={[
+          { name: 'Início', href: '/' },
+          { name: 'Guias', href: '/guias/' },
+        ]}
+      />
+      <div class="mt-8 max-w-3xl">
+        <p class="text-xs font-bold uppercase tracking-[0.18em] text-brand-600">
+          Guias da Baixora
+        </p>
+        <h1 class="mt-4 text-4xl font-bold tracking-tight text-slate-950 sm:text-5xl">
+          Guias para baixar vídeos do TikTok
+        </h1>
+        <p class="mt-5 text-lg leading-8 text-slate-600">
+          Guias práticos para trabalhar com as páginas públicas que você abre: vídeos
+          únicos, seleções em lote, perfis de criadores, novelas curtas e metadados em uma
+          planilha.
+        </p>
+        <p class="mt-4 text-sm text-slate-500">
+          {guides.length} {guides.length === 1 ? 'guia publicado' : 'guias publicados'} · Escrito pela equipe Baixora
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {
+    featured && (
+      <section class="bg-white py-12 sm:py-16">
+        <div class="container-page">
+          <div class="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p class="text-xs font-bold uppercase tracking-[0.16em] text-brand-600">
+                Comece aqui
+              </p>
+              <h2 class="mt-2 text-2xl font-bold tracking-tight text-slate-950">
+                O guia em destaque
+              </h2>
+            </div>
+            <span class="text-sm text-slate-500">Atualizado para o build atual da Baixora</span>
+          </div>
+          <div class="mt-6">
+            <ArticleCard entry={featured} featured />
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <section class="border-t border-slate-200 bg-slate-50 py-14 sm:py-20">
+    <div class="container-page">
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <SectionHeading
+          eyebrow="Todos os guias"
+          title="Navegue pela biblioteca"
+          description="Escolha o fluxo mais próximo da tarefa. Cada guia explica os limites além dos passos."
+        />
+        <a
+          href="/recursos/"
+          class="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700 hover:text-brand-800"
+        >
+          Explorar os recursos
+          <Icon name="arrow" class="h-4 w-4" />
+        </a>
+      </div>
+
+      {
+        rest.length > 0 ? (
+          <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {rest.map((guide) => <ArticleCard entry={guide} />)}
+          </div>
+        ) : (
+          <p class="mt-8 rounded-2xl border border-slate-200 bg-white p-6 text-sm text-slate-600">
+            Mais guias estão sendo preparados. Comece pelo guia em destaque acima.
+          </p>
+        )
+      }
+    </div>
+  </section>
+
+  <section class="bg-white py-14 sm:py-20">
+    <div class="container-page">
+      <div class="grid gap-8 rounded-3xl border border-brand-200 bg-brand-50/60 p-6 sm:p-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+        <div>
+          <p class="text-xs font-bold uppercase tracking-[0.16em] text-brand-700">
+            Uma nota sobre o método
+          </p>
+          <h2 class="mt-3 text-2xl font-bold tracking-tight text-slate-950">
+            Páginas públicas, arquivos selecionados, limites honestos.
+          </h2>
+          <p class="mt-3 text-sm leading-7 text-slate-600">
+            Os guias usam os mesmos limites da extensão: apenas páginas públicas, downloads
+            iniciados por você, dados processados no navegador e uma explicação clara
+            quando o resultado depende do que o TikTok expõe. Nenhum guia promete um
+            arquivo completo nem permissão para reusar um vídeo.
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-3 lg:justify-end">
+          <a href="/recursos/baixar-em-lote/" class="rounded-full border border-brand-200 bg-white px-4 py-2 text-sm font-semibold text-brand-700 hover:border-brand-400">
+            Download em lote
+          </a>
+          <a href="/recursos/baixar-videos-tiktok/" class="rounded-full border border-brand-200 bg-white px-4 py-2 text-sm font-semibold text-brand-700 hover:border-brand-400">
+            Um vídeo
+          </a>
+          <a href="/recursos/videos-de-criadores/" class="rounded-full border border-brand-200 bg-white px-4 py-2 text-sm font-semibold text-brand-700 hover:border-brand-400">
+            Criadores
+          </a>
+          <a href="/recursos/exportar-xlsx/" class="rounded-full border border-brand-200 bg-white px-4 py-2 text-sm font-semibold text-brand-700 hover:border-brand-400">
+            XLSX
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTA
+    campaign="guides-index"
+    title="Leia os passos e teste em uma página pública."
+    description="Instale a Baixora e abra uma página pública compatível. Comece com um vídeo; o Premium libera o fluxo completo em lote."
+    secondaryHref="/recursos/"
+    secondaryLabel="Explorar os recursos"
+  />
+</BaseLayout>

@@ -1,0 +1,207 @@
+---
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CTA from '../../components/CTA.astro';
+import FAQ from '../../components/FAQ.astro';
+import Icon from '../../components/Icon.astro';
+import InstallButton from '../../components/InstallButton.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SHORT_DRAMA_FAQS } from '../../data/faqs';
+import { breadcrumbSchema, faqSchema } from '../../lib/schema';
+
+const title = 'Baixar novelas curtas do TikTok — Baixora';
+const description =
+  'Selecione episódios de novelas curtas públicas do TikTok, salve em uma pasta e exporte os metadados da seleção em XLSX.';
+const jsonLd = [
+  breadcrumbSchema([
+    { name: 'Início', href: '/' },
+    { name: 'Recursos', href: '/recursos/' },
+    { name: 'Novelas curtas', href: '/recursos/novelas-curtas/' },
+  ]),
+  faqSchema(SHORT_DRAMA_FAQS),
+];
+
+const limits = [
+  'A Baixora carrega apenas os episódios que a página pública expõe. Episódios privados, removidos ou bloqueados por região não entram.',
+  'A lista pode variar por região e por mudanças no próprio TikTok.',
+  'O download grava os episódios selecionados; não há promessa de baixar a novela inteira.',
+  'A Baixora não contorna login, CAPTCHA, bloqueio regional, DRM ou limites de taxa.',
+  'O plano Grátis tem limite diário para download em lote, exportação e playlists — por padrão, 10 itens por dia. O Premium libera o fluxo completo.',
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonicalPath="/recursos/novelas-curtas/"
+  jsonLd={jsonLd}
+>
+  <section class="border-b border-slate-200 bg-slate-50">
+    <div class="container-page py-10 sm:py-14">
+      <Breadcrumbs
+        items={[
+          { name: 'Início', href: '/' },
+          { name: 'Recursos', href: '/recursos/' },
+          { name: 'Novelas curtas', href: '/recursos/novelas-curtas/' },
+        ]}
+      />
+      <div class="mt-8 grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+        <div>
+          <p class="text-xs font-bold uppercase tracking-[0.18em] text-brand-600">
+            Novelas curtas
+          </p>
+          <h1 class="mt-4 text-4xl font-bold tracking-tight text-slate-950 sm:text-5xl">
+            Baixar episódios de novelas curtas do TikTok
+          </h1>
+          <p class="mt-5 max-w-2xl text-lg leading-8 text-slate-600">
+            Abra uma novela curta pública, veja os episódios disponíveis em uma grade
+            paginada, selecione o que precisa e salve ou exporte os metadados da seleção.
+          </p>
+          <p class="mt-3 max-w-2xl text-sm leading-6 text-slate-500">
+            A grade é o escopo da seleção. Um episódio de cada vez ou o conjunto que fizer
+            sentido para a sua revisão.
+          </p>
+          <div class="mt-7 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
+            <InstallButton campaign="feature-short-drama" label="Adicionar ao Chrome" />
+            <a
+              href="/guias/como-baixar-novelas-curtas-do-tiktok/"
+              class="text-sm font-semibold text-brand-700 hover:underline"
+            >
+              Ler o guia de novelas curtas
+            </a>
+          </div>
+        </div>
+
+        <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div class="flex items-center gap-2 border-b border-slate-100 pb-4">
+            <span class="h-2.5 w-2.5 rounded-full bg-slate-300"></span>
+            <span class="h-2.5 w-2.5 rounded-full bg-slate-300"></span>
+            <span class="h-2.5 w-2.5 rounded-full bg-slate-300"></span>
+            <span class="ml-2 text-xs font-medium text-slate-500">Novela curta · episódios</span>
+          </div>
+          <div class="mt-5 grid grid-cols-3 gap-3" aria-hidden="true">
+            {Array.from({ length: 6 }).map((_, index) => (
+              <div class="rounded-xl border border-slate-200 bg-slate-50 p-3">
+                <div class="aspect-[3/4] rounded-lg bg-gradient-to-br from-brand-100 to-slate-200"></div>
+                <p class="mt-2 text-center text-[0.7rem] font-semibold text-slate-500">
+                  Ep. {index + 1}
+                </p>
+              </div>
+            ))}
+          </div>
+          <div class="mt-5 flex flex-wrap items-center gap-2 border-t border-slate-100 pt-4">
+            <span class="rounded-full bg-brand-50 px-3 py-1 text-xs font-bold text-brand-700">
+              6 selecionados
+            </span>
+            <span class="rounded-full border border-slate-200 px-3 py-1 text-xs font-medium text-slate-600">
+              Salvar em pasta
+            </span>
+            <span class="rounded-full border border-slate-200 px-3 py-1 text-xs font-medium text-slate-600">
+              Exportar XLSX
+            </span>
+          </div>
+          <p class="mt-4 text-[0.7rem] leading-5 text-slate-500">
+            Representação descritiva das ações do painel. Não é uma captura de tela do
+            produto.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white py-14 sm:py-20">
+    <div class="container-page">
+      <div class="grid gap-5 md:grid-cols-3">
+        {[
+          ['Grade paginada', 'Os episódios disponíveis aparecem em uma grade com navegação por página.'],
+          ['Seleção individual', 'Clique em um episódio para selecionar ou desmarcar. Use o controle de selecionar tudo quando quiser o conjunto.'],
+          ['Salvar ou exportar', 'Salve os MP4 em uma pasta ou exporte os metadados dos episódios selecionados em XLSX.'],
+        ].map(([heading, text]) => (
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-6">
+            <h2 class="text-base font-bold text-slate-950">{heading}</h2>
+            <p class="mt-2 text-sm leading-6 text-slate-600">{text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-slate-200 bg-white py-14 sm:py-20">
+    <div class="container-page">
+      <div class="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+        <SectionHeading
+          eyebrow="Fluxo"
+          title="Escolha os episódios antes de baixar."
+          description="A novela é uma lista, não um arquivo único. A seleção explícita é mais fácil de revisar depois."
+        />
+        <ol class="space-y-4">
+          {[
+            ['Abra a novela curta', 'Use uma página pública de novela curta compatível e espere a página carregar.'],
+            ['Abra o seletor de episódios', 'O controle da Baixora abre a grade com os episódios disponíveis.'],
+            ['Marque o que precisa', 'Selecione episódios individualmente ou use selecionar tudo. Confira a contagem.'],
+            ['Salve ou exporte', 'Grave os MP4 em uma pasta ou gere a planilha XLSX da seleção.'],
+          ].map(([step, text], index) => (
+            <li class="flex gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+              <span class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-600 text-sm font-bold text-white">
+                {index + 1}
+              </span>
+              <div>
+                <h3 class="text-sm font-bold text-slate-950">{step}</h3>
+                <p class="mt-1.5 text-sm leading-6 text-slate-600">{text}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-slate-50 py-14 sm:py-20">
+    <div class="container-page">
+      <SectionHeading eyebrow="Limites" title="A lista de episódios é o que o TikTok expõe." />
+      <div class="mt-8 grid gap-4 md:grid-cols-2">
+        {limits.map((limit) => (
+          <div class="flex gap-3 rounded-xl border border-slate-200 bg-white p-4 text-sm leading-6 text-slate-600">
+            <Icon name="alert" class="mt-0.5 h-4 w-4 shrink-0 text-signal-500" />
+            <p>{limit}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-slate-200 bg-white py-14 sm:py-20">
+    <div class="container-page">
+      <div class="rounded-3xl border border-amber-200 bg-amber-50 p-6 sm:p-8">
+        <div class="flex gap-4">
+          <Icon name="alert" class="mt-0.5 h-6 w-6 shrink-0 text-amber-600" />
+          <div>
+            <h2 class="text-lg font-bold text-slate-950">Episódios também são obras protegidas.</h2>
+            <p class="mt-2 max-w-3xl text-sm leading-7 text-slate-700">
+              Baixar uma novela curta não concede o direito de redistribuir, monetizar ou
+              publicar os episódios. Confirme a licença e as permissões aplicáveis antes de
+              qualquer reuso.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white py-14 sm:py-20">
+    <div class="container-page">
+      <SectionHeading eyebrow="FAQ" title="Dúvidas sobre novelas curtas." align="center" />
+      <div class="mx-auto mt-8 max-w-4xl">
+        <FAQ items={SHORT_DRAMA_FAQS} />
+      </div>
+    </div>
+  </section>
+
+  <CTA
+    campaign="feature-short-drama-final"
+    title="Selecione os episódios. Salve a seleção."
+    description="Instale a Baixora, abra uma novela curta pública e escolha os episódios. O Premium libera o fluxo completo em lote."
+    secondaryHref="/guias/como-baixar-novelas-curtas-do-tiktok/"
+    secondaryLabel="Ler o guia de novelas curtas"
+  />
+</BaseLayout>

@@ -1,0 +1,159 @@
+---
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import CTA from '../components/CTA.astro';
+import Icon from '../components/Icon.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { breadcrumbSchema } from '../lib/schema';
+import { SITE } from '../data/site';
+
+const title = `Novidades — Baixora v${SITE.version}`;
+const description =
+  'O build público atual da Baixora: download em lote, perfis de criadores, novelas curtas, exportação XLSX e detalhes da interface.';
+const jsonLd = [
+  breadcrumbSchema([
+    { name: 'Início', href: '/' },
+    { name: 'Novidades', href: '/novidades/' },
+  ]),
+];
+
+const groups = [
+  {
+    title: 'Download em lote',
+    items: [
+      'Adicionar vídeos de resultados de pesquisa, Explorar, hashtags e perfis de criadores.',
+      'Baixar a seleção em ZIP ou gravar arquivos MP4 individuais em uma pasta escolhida.',
+      'Acompanhar o progresso do lote e revisar itens com falha sem interromper o restante.',
+      'Limite diário no plano Grátis para lote, exportação e playlists.',
+    ],
+  },
+  {
+    title: 'Vídeos de criadores',
+    items: [
+      'Canais para publicações, republicações, playlists e vídeos curtidos.',
+      'Controles para iniciar, continuar e parar a coleta de um perfil público.',
+      'Filtros por duração, período, título, playlist e métricas mínimas.',
+      'Seleção em lote para download ou exportação.',
+    ],
+  },
+  {
+    title: 'Download de um vídeo',
+    items: [
+      'Controle de download em páginas de vídeo e cards públicos compatíveis.',
+      'Fonte sem marca d’água quando o TikTok disponibiliza uma; HD quando há stream HD.',
+      'Formatos de nome: título, data + título, data + ID do vídeo e usuário + data + título.',
+      'Relatório de progresso e cancelamento do download atual.',
+    ],
+  },
+  {
+    title: 'Exportação XLSX',
+    items: [
+      'Exportar 15 campos públicos dos vídeos selecionados.',
+      'Incluir ID, descrição, URLs, data, duração, playlist e contagens de engajamento quando disponíveis.',
+      'Gerar o arquivo localmente, sem integração com conta ou complemento.',
+    ],
+  },
+  {
+    title: 'Novelas curtas',
+    items: [
+      'Controle de download em páginas públicas compatíveis de novelas curtas.',
+      'Grade paginada de episódios com seleção individual e selecionar tudo.',
+      'Salvar episódios em uma pasta e exportar os metadados da seleção em XLSX.',
+    ],
+  },
+  {
+    title: 'Interface e idioma',
+    items: [
+      'Interface em 23 idiomas, seguindo o idioma do navegador.',
+      'Mensagens de limite do plano Grátis e de status do token Premium na extensão.',
+      'Aviso de uso responsável e de direitos de conteúdo.',
+    ],
+  },
+];
+---
+
+<BaseLayout title={title} description={description} canonicalPath="/novidades/" jsonLd={jsonLd}>
+  <section class="border-b border-slate-200 bg-slate-50">
+    <div class="container-page py-10 sm:py-14">
+      <Breadcrumbs
+        items={[
+          { name: 'Início', href: '/' },
+          { name: 'Novidades', href: '/novidades/' },
+        ]}
+      />
+      <div class="mt-8 max-w-3xl">
+        <p class="text-xs font-bold uppercase tracking-[0.18em] text-brand-600">
+          Novidades
+        </p>
+        <h1 class="mt-4 text-4xl font-bold tracking-tight text-slate-950 sm:text-5xl">
+          Novidades da extensão
+        </h1>
+        <p class="mt-5 text-lg leading-8 text-slate-600">
+          Um resumo do build público atual da Baixora: o fluxo em lote, os canais de
+          criador, a exportação XLSX, as novelas curtas e os detalhes de interface.
+        </p>
+        <p class="mt-4 text-sm text-slate-500">
+          Build atual v{SITE.version} · atualizado em novembro de 2026
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="container-page py-12 sm:py-16">
+    <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_18rem]">
+      <div class="space-y-8">
+        {
+          groups.map((group) => (
+            <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+              <div class="flex items-center gap-3">
+                <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-brand-50 text-brand-700">
+                  <Icon name="check" class="h-4 w-4" />
+                </span>
+                <h2 class="text-lg font-bold text-slate-950">{group.title}</h2>
+              </div>
+              <ul class="mt-4 space-y-2.5 text-sm leading-6 text-slate-600">
+                {group.items.map((item) => (
+                  <li class="flex gap-2.5">
+                    <span aria-hidden="true" class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-400" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))
+        }
+      </div>
+
+      <aside class="space-y-5">
+        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+          <h2 class="text-sm font-bold text-slate-950">Fonte de verdade</h2>
+          <p class="mt-2 text-sm leading-6 text-slate-600">
+            A página da extensão na Chrome Web Store é a fonte de verdade para o build
+            público, os limites do plano e a disponibilidade. Esta página descreve o build
+            referenciado pelo site.
+          </p>
+          <p class="mt-3 text-xs leading-5 text-slate-500">
+            Listagem: {SITE.storeTitle}
+          </p>
+        </div>
+        <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+          <h2 class="text-sm font-bold text-slate-950">Links úteis</h2>
+          <ul class="mt-3 space-y-2 text-sm">
+            <li><a href="/recursos/baixar-em-lote/" class="text-slate-600 hover:text-brand-700">Download em lote</a></li>
+            <li><a href="/guias/" class="text-slate-600 hover:text-brand-700">Guias</a></li>
+            <li><a href="/planos/" class="text-slate-600 hover:text-brand-700">Planos</a></li>
+            <li><a href="/suporte/" class="text-slate-600 hover:text-brand-700">Suporte</a></li>
+            <li><a href="/privacidade/" class="text-slate-600 hover:text-brand-700">Privacidade</a></li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <CTA
+    campaign="changelog-final"
+    title="Abra uma página pública e veja o build em ação."
+    description="Instale a Baixora e comece pelo fluxo em lote ou por um vídeo único. O Premium libera o fluxo completo em lote."
+    secondaryHref="/recursos/"
+    secondaryLabel="Explorar os recursos"
+  />
+</BaseLayout>

@@ -1,0 +1,226 @@
+---
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CTA from '../../components/CTA.astro';
+import FAQ from '../../components/FAQ.astro';
+import Icon from '../../components/Icon.astro';
+import InstallButton from '../../components/InstallButton.astro';
+import ProductShot from '../../components/ProductShot.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { CREATOR_VIDEO_FAQS } from '../../data/faqs';
+import { breadcrumbSchema, faqSchema } from '../../lib/schema';
+
+const title = 'Baixar vídeos de um criador do TikTok — Baixora';
+const description =
+  'Carregue publicações, republicações, playlists ou vídeos curtidos de um criador público, filtre a lista e baixe ou exporte a seleção em lote.';
+const jsonLd = [
+  breadcrumbSchema([
+    { name: 'Início', href: '/' },
+    { name: 'Recursos', href: '/recursos/' },
+    { name: 'Vídeos de criadores', href: '/recursos/videos-de-criadores/' },
+  ]),
+  faqSchema(CREATOR_VIDEO_FAQS),
+];
+
+const channels = [
+  ['Publicações', 'Os vídeos públicos do criador como aparecem no perfil.'],
+  ['Republicações', 'Republicações públicas, quando o TikTok expõe essa seção.'],
+  ['Playlists', 'As playlists públicas do criador e os vídeos de cada uma.'],
+  ['Curtidos', 'Vídeos curtidos publicamente, quando o perfil os disponibiliza.'],
+] as const;
+
+const filters = [
+  ['Duração', 'Filtre vídeos mais curtos ou mais longos que um valor em segundos.'],
+  ['Período', 'Defina uma data inicial e final para a publicação.'],
+  ['Título', 'Procure palavras específicas na descrição do vídeo.'],
+  ['Playlist', 'Restrinja a seleção a uma playlist específica.'],
+  ['Métricas mínimas', 'Use contagens mínimas de reproduções, curtidas, salvamentos, comentários e compartilhamentos.'],
+] as const;
+
+const limits = [
+  'A Baixora carrega o que o perfil disponibiliza. Vídeos privados, removidos, bloqueados por região ou disponíveis só após login não podem ser carregados.',
+  'A execução não é um arquivo completo garantido. Ela para quando o TikTok deixa de retornar itens ou quando você a interrompe.',
+  'Os filtros valem para a lista carregada. Um resultado filtrado não é o mesmo que o histórico completo do criador.',
+  'A Baixora não junta execuções parciais entre páginas, abas ou sessões.',
+  'O plano Grátis tem limite diário para download em lote, exportação e playlists — por padrão, 10 itens por dia. O Premium libera o fluxo completo.',
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonicalPath="/recursos/videos-de-criadores/"
+  jsonLd={jsonLd}
+>
+  <section class="border-b border-slate-200 bg-slate-50">
+    <div class="container-page py-10 sm:py-14">
+      <Breadcrumbs
+        items={[
+          { name: 'Início', href: '/' },
+          { name: 'Recursos', href: '/recursos/' },
+          { name: 'Vídeos de criadores', href: '/recursos/videos-de-criadores/' },
+        ]}
+      />
+      <div class="mt-8 grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+        <div>
+          <p class="text-xs font-bold uppercase tracking-[0.18em] text-brand-600">
+            Perfis de criadores
+          </p>
+          <h1 class="mt-4 text-4xl font-bold tracking-tight text-slate-950 sm:text-5xl">
+            Baixar os vídeos de um criador do TikTok
+          </h1>
+          <p class="mt-5 max-w-2xl text-lg leading-8 text-slate-600">
+            Abra um perfil público, carregue publicações, republicações, playlists ou
+            vídeos curtidos, filtre a lista e salve a seleção em ZIP ou em uma pasta.
+          </p>
+          <p class="mt-3 max-w-2xl text-sm leading-6 text-slate-500">
+            O painel da extensão oferece seletor de canal e controles para iniciar,
+            continuar e parar a coleta.
+          </p>
+          <div class="mt-7 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
+            <InstallButton campaign="feature-creator-videos" label="Adicionar ao Chrome" />
+            <a
+              href="/guias/como-baixar-videos-de-um-criador-do-tiktok/"
+              class="text-sm font-semibold text-brand-700 hover:underline"
+            >
+              Ler o guia do criador
+            </a>
+          </div>
+        </div>
+        <ProductShot id="creator-profile" priority />
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white py-14 sm:py-20">
+    <div class="container-page">
+      <SectionHeading
+        eyebrow="Canais"
+        title="Escolha a seção exata do perfil."
+        description="O que não aparece publicamente não pode ser carregado. Cada canal tem seu próprio escopo."
+      />
+      <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {channels.map(([name, description]) => (
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-6">
+            <h2 class="text-base font-bold text-slate-950">{name}</h2>
+            <p class="mt-2 text-sm leading-6 text-slate-600">{description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-slate-200 bg-white py-14 sm:py-20">
+    <div class="container-page">
+      <div class="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
+        <div>
+          <SectionHeading
+            eyebrow="Filtros"
+            title="Reduza a lista antes de baixar."
+            description="Os filtros são aplicados à lista carregada. A seleção filtrada é a mesma usada no download e na exportação."
+          />
+          <div class="mt-8 overflow-x-auto rounded-2xl border border-slate-200 bg-white">
+            <table class="w-full border-collapse text-left text-sm">
+              <caption class="sr-only">Filtros disponíveis no painel de criador</caption>
+              <thead class="bg-slate-50">
+                <tr>
+                  <th scope="col" class="px-3 py-3 font-bold text-slate-900 sm:px-5 sm:py-3.5">Filtro</th>
+                  <th scope="col" class="px-3 py-3 font-bold text-slate-900 sm:px-5 sm:py-3.5">Como funciona</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filters.map(([name, description]) => (
+                  <tr class="border-t border-slate-100">
+                    <th scope="row" class="px-3 py-3 font-semibold text-slate-800 sm:px-5 sm:py-3.5">{name}</th>
+                    <td class="px-3 py-3 text-slate-600 sm:px-5 sm:py-3.5">{description}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <ProductShot id="creator-panel" />
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-slate-50 py-14 sm:py-20">
+    <div class="container-page">
+      <div class="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+        <SectionHeading
+          eyebrow="Fluxo"
+          title="Carregue, filtre, selecione e salve."
+          description="A coleta pode ser interrompida e continuada; o resultado sempre depende do que o perfil expõe."
+        />
+        <ol class="space-y-4">
+          {[
+            ['Abra o perfil público', 'Use o perfil do criador no TikTok e espere a página carregar.'],
+            ['Escolha o canal', 'Selecione Publicações, Republicações, Playlists ou Curtidos, quando disponível.'],
+            ['Inicie a coleta', 'Use Iniciar e acompanhe a contagem de itens coletados. Pare quando tiver o suficiente.'],
+            ['Aplique filtros', 'Restrinja por duração, período, título, playlist ou métricas mínimas.'],
+            ['Baixe ou exporte', 'Salve os MP4 em uma pasta ou gere a planilha XLSX com a seleção.'],
+          ].map(([step, text], index) => (
+            <li class="flex gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+              <span class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-600 text-sm font-bold text-white">
+                {index + 1}
+              </span>
+              <div>
+                <h3 class="text-sm font-bold text-slate-950">{step}</h3>
+                <p class="mt-1.5 text-sm leading-6 text-slate-600">{text}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-slate-200 bg-white py-14 sm:py-20">
+    <div class="container-page">
+      <SectionHeading eyebrow="Limites" title="O perfil mostra mais do que você consegue baixar." />
+      <div class="mt-8 grid gap-4 md:grid-cols-2">
+        {limits.map((limit) => (
+          <div class="flex gap-3 rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm leading-6 text-slate-600">
+            <Icon name="alert" class="mt-0.5 h-4 w-4 shrink-0 text-signal-500" />
+            <p>{limit}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white py-14 sm:py-20">
+    <div class="container-page">
+      <div class="rounded-3xl border border-amber-200 bg-amber-50 p-6 sm:p-8">
+        <div class="flex gap-4">
+          <Icon name="alert" class="mt-0.5 h-6 w-6 shrink-0 text-amber-600" />
+          <div>
+            <h2 class="text-lg font-bold text-slate-950">Coletar não é o mesmo que ter direitos.</h2>
+            <p class="mt-2 max-w-3xl text-sm leading-7 text-slate-700">
+              Um vídeo público pode ser baixado tecnicamente e ainda assim não estar
+              licenciado para reuso. Confirme a permissão do criador e a lei aplicável
+              antes de republicar ou usar comercialmente.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-slate-200 bg-slate-50 py-14 sm:py-20">
+    <div class="container-page">
+      <SectionHeading eyebrow="FAQ" title="Dúvidas sobre vídeos de criadores." align="center" />
+      <div class="mx-auto mt-8 max-w-4xl">
+        <FAQ items={CREATOR_VIDEO_FAQS} />
+      </div>
+    </div>
+  </section>
+
+  <CTA
+    campaign="feature-creator-final"
+    title="Carregue o perfil. Filtre a lista. Salve a seleção."
+    description="Instale a Baixora, abra um perfil público e use o painel de criador. O Premium libera o fluxo completo em lote."
+    secondaryHref="/guias/como-baixar-videos-de-um-criador-do-tiktok/"
+    secondaryLabel="Ler o guia do criador"
+  />
+</BaseLayout>

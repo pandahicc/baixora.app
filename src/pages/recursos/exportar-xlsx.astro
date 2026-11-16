@@ -1,0 +1,224 @@
+---
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CTA from '../../components/CTA.astro';
+import FAQ from '../../components/FAQ.astro';
+import Icon from '../../components/Icon.astro';
+import InstallButton from '../../components/InstallButton.astro';
+import ProductShot from '../../components/ProductShot.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { XLSX_EXPORT_FAQS } from '../../data/faqs';
+import { breadcrumbSchema, faqSchema } from '../../lib/schema';
+
+const title = 'Exportar dados de vídeos do TikTok para Excel — Baixora';
+const description =
+  'Exporte 15 campos públicos dos vídeos selecionados do TikTok para uma planilha XLSX: ID, descrição, data, duração, playlist e métricas.';
+const jsonLd = [
+  breadcrumbSchema([
+    { name: 'Início', href: '/' },
+    { name: 'Recursos', href: '/recursos/' },
+    { name: 'Exportação XLSX', href: '/recursos/exportar-xlsx/' },
+  ]),
+  faqSchema(XLSX_EXPORT_FAQS),
+];
+
+const fields = [
+  ['ID do vídeo', 'O identificador numérico do vídeo no TikTok.'],
+  ['URL da capa', 'URL da imagem de capa exposta pela página.'],
+  ['Descrição', 'A descrição ou legenda do vídeo.'],
+  ['URL de detalhe', 'Link para a página pública do vídeo.'],
+  ['URL de mídia', 'A URL do arquivo usada pelo fluxo de download.'],
+  ['isTop', 'Se a página marca o item como fixado, quando disponível.'],
+  ['Data de criação', 'A data de publicação exposta pela página.'],
+  ['ID da playlist', 'Identificador da playlist quando o vídeo pertence a uma.'],
+  ['Nome da playlist', 'Nome da playlist quando disponível.'],
+  ['Duração', 'Duração do vídeo nos dados da página.'],
+  ['Reproduções', 'Contagem pública de reproduções, quando disponível.'],
+  ['Curtidas', 'Contagem pública de curtidas, quando disponível.'],
+  ['Salvamentos', 'Contagem pública de salvamentos, quando disponível.'],
+  ['Comentários', 'Contagem pública de comentários, quando disponível.'],
+  ['Compartilhamentos', 'Contagem pública de compartilhamentos, quando disponível.'],
+] as const;
+
+const limits = [
+  'A exportação contém os registros selecionados da amostra carregada. Não é um conjunto de dados de toda a plataforma.',
+  'Os campos entram apenas quando a página os expõe. Valores ausentes ficam em branco.',
+  'As contagens são um retrato do momento, não um feed ao vivo nem uma série histórica.',
+  'A planilha não inclui vendas, receita, investimento em anúncios, conversão ou dados demográficos de audiência.',
+  'A Baixora não junta registros entre páginas, abas ou sessões de navegação.',
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonicalPath="/recursos/exportar-xlsx/"
+  jsonLd={jsonLd}
+>
+  <section class="border-b border-slate-200 bg-slate-50">
+    <div class="container-page py-10 sm:py-14">
+      <Breadcrumbs
+        items={[
+          { name: 'Início', href: '/' },
+          { name: 'Recursos', href: '/recursos/' },
+          { name: 'Exportação XLSX', href: '/recursos/exportar-xlsx/' },
+        ]}
+      />
+      <div class="mt-8 grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+        <div>
+          <p class="text-xs font-bold uppercase tracking-[0.18em] text-brand-600">
+            Exportação XLSX
+          </p>
+          <h1 class="mt-4 text-4xl font-bold tracking-tight text-slate-950 sm:text-5xl">
+            Exportar dados de vídeos do TikTok para Excel
+          </h1>
+          <p class="mt-5 max-w-2xl text-lg leading-8 text-slate-600">
+            Selecione os vídeos no fluxo de criador, novela curta ou lista e exporte 15
+            campos públicos para uma planilha .xlsx que você abre no Excel, Google Sheets
+            ou outro aplicativo.
+          </p>
+          <p class="mt-3 max-w-2xl text-sm leading-6 text-slate-500">
+            A planilha descreve a amostra selecionada. Ela não estima vendas, receita ou
+            dados que a página não expõe.
+          </p>
+          <div class="mt-7 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
+            <InstallButton campaign="feature-xlsx-export" label="Adicionar ao Chrome" />
+            <a
+              href="/guias/como-exportar-dados-de-videos-do-tiktok-para-excel/"
+              class="text-sm font-semibold text-brand-700 hover:underline"
+            >
+              Ler o guia de exportação
+            </a>
+          </div>
+        </div>
+        <ProductShot id="creator-panel" priority />
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white py-14 sm:py-20">
+    <div class="container-page">
+      <div class="grid gap-5 md:grid-cols-3">
+        {[
+          ['A seleção atual', 'A exportação usa os vídeos selecionados no fluxo em andamento. Não junta dados de outras abas ou sessões.'],
+          ['15 colunas públicas', 'ID, descrição, URLs, data, duração, playlist e contagens de engajamento, quando disponíveis.'],
+          ['Planilha local', 'O arquivo .xlsx é gerado no navegador. Não há conexão de conta, complemento ou sincronização.'],
+        ].map(([heading, text]) => (
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-6">
+            <h2 class="text-base font-bold text-slate-950">{heading}</h2>
+            <p class="mt-2 text-sm leading-6 text-slate-600">{text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-slate-200 bg-white py-14 sm:py-20">
+    <div class="container-page">
+      <SectionHeading
+        eyebrow="Colunas"
+        title="O que entra na planilha."
+        description="Os campos são os que a página pública expõe no momento da execução. Valores ausentes ficam em branco."
+      />
+      <div class="mt-8 overflow-x-auto rounded-2xl border border-slate-200 bg-white">
+        <table class="w-full border-collapse text-left text-sm">
+          <caption class="sr-only">Campos da exportação XLSX da Baixora</caption>
+          <thead class="bg-slate-50">
+            <tr>
+              <th scope="col" class="px-3 py-3 font-bold text-slate-900 sm:px-5 sm:py-3.5">Campo</th>
+              <th scope="col" class="px-3 py-3 font-bold text-slate-900 sm:px-5 sm:py-3.5">Descrição</th>
+            </tr>
+          </thead>
+          <tbody>
+            {fields.map(([name, description]) => (
+              <tr class="border-t border-slate-100">
+                <th scope="row" class="whitespace-nowrap px-3 py-3 font-semibold text-slate-800 sm:px-5 sm:py-3.5">{name}</th>
+                <td class="px-3 py-3 text-slate-600 sm:px-5 sm:py-3.5">{description}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-slate-50 py-14 sm:py-20">
+    <div class="container-page">
+      <div class="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+        <SectionHeading
+          eyebrow="Fluxo"
+          title="Da seleção para a planilha."
+          description="Exportar é o último passo. A definição da amostra acontece antes."
+        />
+        <ol class="space-y-4">
+          {[
+            ['Selecione os vídeos', 'Use o fluxo de lista, criador ou novela curta e marque os itens que devem entrar.'],
+            ['Confira a quantidade', 'A contagem selecionada é a quantidade de linhas esperada na planilha.'],
+            ['Exporte o XLSX', 'Use a ação de exportar no painel da extensão e salve o arquivo.'],
+            ['Abra na planilha', 'O .xlsx abre no Excel, Google Sheets ou outro aplicativo compatível.'],
+          ].map(([step, text], index) => (
+            <li class="flex gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+              <span class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-600 text-sm font-bold text-white">
+                {index + 1}
+              </span>
+              <div>
+                <h3 class="text-sm font-bold text-slate-950">{step}</h3>
+                <p class="mt-1.5 text-sm leading-6 text-slate-600">{text}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-slate-200 bg-white py-14 sm:py-20">
+    <div class="container-page">
+      <SectionHeading eyebrow="Limites" title="O que a planilha não é." />
+      <div class="mt-8 grid gap-4 md:grid-cols-2">
+        {limits.map((limit) => (
+          <div class="flex gap-3 rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm leading-6 text-slate-600">
+            <Icon name="alert" class="mt-0.5 h-4 w-4 shrink-0 text-signal-500" />
+            <p>{limit}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white py-14 sm:py-20">
+    <div class="container-page">
+      <div class="rounded-3xl border border-amber-200 bg-amber-50 p-6 sm:p-8">
+        <div class="flex gap-4">
+          <Icon name="alert" class="mt-0.5 h-6 w-6 shrink-0 text-amber-600" />
+          <div>
+            <h2 class="text-lg font-bold text-slate-950">Dados públicos também exigem cuidado.</h2>
+            <p class="mt-2 max-w-3xl text-sm leading-7 text-slate-700">
+              Uma planilha pode conter identificadores e métricas de terceiros. Use os
+              dados de forma compatível com a lei aplicável, os termos do TikTok e as
+              expectativas das pessoas envolvidas. Não transforme uma amostra em uma
+              afirmação sobre toda a plataforma.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-slate-200 bg-slate-50 py-14 sm:py-20">
+    <div class="container-page">
+      <SectionHeading eyebrow="FAQ" title="Dúvidas sobre exportação XLSX." align="center" />
+      <div class="mx-auto mt-8 max-w-4xl">
+        <FAQ items={XLSX_EXPORT_FAQS} />
+      </div>
+    </div>
+  </section>
+
+  <CTA
+    campaign="feature-xlsx-final"
+    title="Leve a seleção para a planilha."
+    description="Instale a Baixora, selecione os vídeos e exporte o XLSX. O Premium libera o fluxo completo em lote e a exportação estendida."
+    secondaryHref="/guias/como-exportar-dados-de-videos-do-tiktok-para-excel/"
+    secondaryLabel="Ler o guia de exportação"
+  />
+</BaseLayout>

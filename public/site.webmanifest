@@ -1,0 +1,21 @@
+{
+  "name": "Baixora — baixador de vídeos para TikTok",
+  "short_name": "Baixora",
+  "description": "Baixe e salve vídeos do TikTok em lote, com saída em ZIP ou pasta e exportação XLSX.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0f766e",
+  "icons": [
+    {
+      "src": "/images/brand/baixora-icon-48.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/brand/baixora-icon-128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    }
+  ]
+}

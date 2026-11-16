@@ -1,0 +1,276 @@
+---
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Icon from '../components/Icon.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { breadcrumbSchema } from '../lib/schema';
+import { SITE } from '../data/site';
+
+const title = 'Política de Privacidade — Baixora';
+const description =
+  'Como a Baixora trata dados de páginas públicas, armazenamento da extensão, validação de licença, cookies e o site, conforme a LGPD.';
+const gaEnabled = Boolean(SITE.gaMeasurementId);
+const lastUpdated = '16 de novembro de 2026';
+const jsonLd = [
+  breadcrumbSchema([
+    { name: 'Início', href: '/' },
+    { name: 'Privacidade', href: '/privacidade/' },
+  ]),
+];
+---
+
+<BaseLayout title={title} description={description} canonicalPath="/privacidade/" jsonLd={jsonLd}>
+  <section class="border-b border-slate-200 bg-slate-50">
+    <div class="container-page py-10 sm:py-14">
+      <Breadcrumbs
+        items={[
+          { name: 'Início', href: '/' },
+          { name: 'Privacidade', href: '/privacidade/' },
+        ]}
+      />
+      <div class="mt-8 max-w-3xl">
+        <p class="text-xs font-bold uppercase tracking-[0.18em] text-brand-600">
+          Legal e privacidade
+        </p>
+        <h1 class="mt-4 text-4xl font-bold tracking-tight text-slate-950 sm:text-5xl">
+          Política de Privacidade
+        </h1>
+        <p class="mt-5 text-lg leading-8 text-slate-600">
+          Esta política descreve a extensão Baixora e este site. Ela foi escrita para
+          refletir o build atual, incluindo o que a extensão <strong>não</strong> faz.
+        </p>
+        <p class="mt-4 text-sm text-slate-500">Última atualização: {lastUpdated}</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="container-page py-12 sm:py-16">
+    <div class="prose max-w-3xl">
+      <div class="not-prose mb-10 rounded-2xl border border-brand-200 bg-brand-50/70 p-5 text-sm leading-6 text-brand-950">
+        <div class="flex gap-3">
+          <Icon name="shield" class="mt-0.5 h-5 w-5 shrink-0 text-brand-700" />
+          <p>
+            <strong>Resumo:</strong> a Baixora processa os dados de páginas públicas no seu
+            navegador. Não envia esses dados para servidores da Baixora. Os downloads
+            pedem mídia aos domínios do TikTok quando você os inicia. A validação do
+            Premium contata o servidor de licença em <code>pandahi.cc</code> com um
+            identificador e um token, não com dados de página. A extensão não contém
+            analytics nem telemetria.
+          </p>
+        </div>
+      </div>
+
+      <h2>1. Escopo</h2>
+      <p>
+        Esta política cobre a extensão de navegador Baixora e o site público em{' '}
+        <a href={SITE.url}>{SITE.url}</a>. Ela não cobre o TikTok, a Chrome Web Store, o
+        processador de pagamento da assinatura ou qualquer outro serviço de terceiros que
+        você escolha usar. Esses serviços têm políticas próprias.
+      </p>
+
+      <h2>2. Quem controla os dados</h2>
+      <p>
+        Para os fins da Lei Geral de Proteção de Dados (LGPD, Lei nº 13.709/2018), a
+        Baixora atua como controladora dos dados tratados na extensão e neste site. O canal
+        de contato para assuntos de privacidade é{' '}
+        <a href={`mailto:${SITE.supportEmail}`}>{SITE.supportEmail}</a>.
+      </p>
+
+      <h2>3. O que a extensão lê</h2>
+      <p>
+        A Baixora foi feita para páginas públicas do TikTok que você abre. Conforme a
+        página, ela lê informações já presentes nela: cards de vídeo renderizados,
+        propriedades React somente leitura expostas pela página e JSON incorporado. Os
+        campos podem incluir IDs de vídeo, descrições, capas, contagens, identificadores de
+        autor, contexto de playlist, fontes de vídeo e dados de episódios de novelas
+        curtas.
+      </p>
+      <p>
+        A Baixora não contorna login, CAPTCHA, restrições regionais, DRM ou limites de
+        taxa. Ela é destinada a páginas públicas. Não coleta mensagens privadas, senhas ou
+        conteúdo que a página não disponibilize.
+      </p>
+
+      <h2>4. Onde os dados são processados</h2>
+      <p>
+        Os dados de página são processados localmente no seu navegador. A Baixora não
+        envia dados de página para um servidor da Baixora. Não vende esses dados nem os usa
+        para publicidade. Não executa um rastreador em segundo plano nem monta uma
+        biblioteca escondida de vídeos.
+      </p>
+      <p>
+        Configurações, preferências de nome de arquivo, um pequeno cache de perfil
+        <code>secUid</code> e uma credencial Premium podem ser armazenados em
+        <code>chrome.storage.local</code>. O conteúdo das páginas usado pelos painéis fica
+        no contexto da página e não é enviado à Baixora.
+      </p>
+
+      <h2>5. Requisições de rede</h2>
+      <p>
+        A atividade de rede se divide em quatro categorias restritas, separadas da coleta de
+        dados de página.
+      </p>
+      <ul>
+        <li>
+          <strong>Dados da página que você abriu.</strong> Ao iniciar um fluxo de criador ou
+          de novela curta, a Baixora solicita endpoints públicos do próprio TikTok para
+          carregar mais publicações ou episódios. A requisição está ligada à página e à ação
+          que você iniciou.
+        </li>
+        <li>
+          <strong>Downloads.</strong> Ao clicar em um controle de download, a Baixora
+          solicita a URL de mídia aos domínios de mídia do TikTok e grava o arquivo
+          localmente. A requisição é iniciada por você.
+        </li>
+        <li>
+          <strong>Validação da licença Premium.</strong> Ao abrir o fluxo de assinatura,
+          restaurar uma licença, atualizar o status ou usar um recurso pago que exija
+          verificação, a extensão contata <code>pandahi.cc</code>. A requisição pode incluir
+          identificador de conta, token, canal e tipo de operação. Ela{' '}
+          <strong>não</strong> inclui dados de página nem mídia baixada.
+        </li>
+        <li>
+          <strong>Permissões da extensão.</strong> A extensão declara permissões de
+          armazenamento, abas, requisição web e regras de rede, além de acesso aos domínios
+          do TikTok e ao servidor de licença. O acesso opcional a domínios de CDN do TikTok
+          é solicitado quando necessário para o download.
+        </li>
+      </ul>
+
+      <h2>6. O que fica armazenado no navegador</h2>
+      <p>
+        A extensão pode manter preferências, o cache de perfil mencionado acima e a
+        credencial Premium no armazenamento local do Chrome. Esses dados ficam no seu
+        perfil do navegador. Você pode removê-los desinstalando a extensão ou limpando os
+        dados da extensão nas configurações do Chrome.
+      </p>
+
+      <h2>7. Licença Premium e token</h2>
+      <p>
+        A assinatura Premium é ativada por um token informado na extensão. O token e o
+        status da licença são usados para validar o acesso aos recursos pagos. Não envie o
+        token a terceiros nem ao suporte: para uma dúvida de licenciamento, basta a
+        referência da assinatura.
+      </p>
+
+      <h2>8. Site institucional, hospedagem e logs</h2>
+      <p>
+        Este é um site estático. Não há formulário de contato, cadastro, login ou checkout
+        web. A hospedagem pode registrar informações técnicas padrão, como endereço IP,
+        data e hora do acesso, página solicitada, tipo de navegador e código de resposta,
+        para segurança, diagnóstico e funcionamento do serviço.
+      </p>
+      <p>
+        Se você escrever para o suporte, o conteúdo do email e o endereço de resposta serão
+        tratados para responder à solicitação e manter o histórico necessário de
+        atendimento.
+      </p>
+
+      <h2>9. Analytics e cookies</h2>
+      {
+        gaEnabled ? (
+          <>
+            <p>
+              Este build configura o Google Analytics 4. Quando ativo, o site carrega o
+              script do Google, que pode definir cookies como <code>_ga</code> e registrar
+              uma visita com anonimização de IP. O objetivo é medir o uso agregado do site,
+              não identificar pessoas. Você pode bloquear cookies nas configurações do
+              navegador.
+            </p>
+          </>
+        ) : (
+          <>
+            <p>
+              Este build <strong>não configura</strong> o Google Analytics. O site não
+              carrega scripts de análise nem define cookies próprios de medição. Se um ID de
+              medição for configurado em um build futuro, esta política será atualizada e o
+              carregamento respeitará a base legal aplicável.
+            </p>
+          </>
+        )
+      }
+      <p>
+        A extensão não contém analytics nem telemetria. O TikTok e a Chrome Web Store podem
+        usar seus próprios cookies e tecnologias quando você acessa esses serviços.
+      </p>
+
+      <h2>10. Bases legais</h2>
+      <p>
+        Conforme a LGPD, o tratamento pode se apoiar em: execução de contrato ou
+        procedimentos preliminares (assinatura e licença Premium); legítimo interesse
+        (segurança, prevenção a fraude, funcionamento e melhoria do produto); consentimento
+        (quando exigido, por exemplo para analytics); e cumprimento de obrigação legal ou
+        regulatória.
+      </p>
+
+      <h2>11. Compartilhamento e transferência internacional</h2>
+      <p>
+        A Baixora não vende dados pessoais. O compartilhamento é limitado ao necessário para
+        operar o serviço: provedores de hospedagem e CDN do site, Google (Chrome Web Store
+        e, se configurado, Analytics), o servidor de licença em <code>pandahi.cc</code> e o
+        TikTok para as requisições de página e mídia iniciadas por você.
+      </p>
+      <p>
+        Alguns desses provedores podem tratar dados fora do Brasil. Quando isso ocorrer, a
+        transferência deve se apoiar em mecanismos previstos na LGPD, como cláusulas
+        contratuais específicas, normas corporativas globais ou outra base legal aplicável.
+      </p>
+
+      <h2>12. Retenção</h2>
+      <p>
+        Preferências e o cache local permanecem no navegador até você limpar os dados ou
+        desinstalar a extensão. Dados de licença são mantidos enquanto a assinatura estiver
+        ativa e pelo período necessário para cumprir obrigações legais. Mensagens de suporte
+        são mantidas pelo tempo necessário ao atendimento e à defesa de direitos. Logs de
+        hospedagem são mantidos pelo período necessário à segurança e ao diagnóstico.
+      </p>
+
+      <h2>13. Segurança</h2>
+      <p>
+        O site usa HTTPS. A extensão pede permissões limitadas ao necessário para o fluxo e
+        não envia dados de página à Baixora. Nenhum sistema é totalmente imune a incidentes.
+        Se houver um incidente relevante, adotaremos as medidas de contenção e comunicação
+        exigidas pela LGPD e pelas autoridades competentes.
+      </p>
+
+      <h2>14. Direitos do titular</h2>
+      <p>
+        Nos termos da LGPD, você pode solicitar, conforme aplicável: confirmação da
+        existência de tratamento; acesso aos dados; correção de dados incompletos,
+        inexatos ou desatualizados; anonimização, bloqueio ou eliminação de dados
+        desnecessários, excessivos ou tratados em desconformidade; portabilidade;
+        eliminação de dados tratados com consentimento; informação sobre compartilhamentos;
+        informação sobre a possibilidade de não consentir e suas consequências; e revogação
+        do consentimento.
+      </p>
+      <p>
+        Para exercer seus direitos, escreva para{' '}
+        <a href={`mailto:${SITE.supportEmail}`}>{SITE.supportEmail}</a>. Responderemos no
+        prazo aplicável. Você também pode apresentar reclamação à Autoridade Nacional de
+        Proteção de Dados (ANPD).
+      </p>
+
+      <h2>15. Crianças e adolescentes</h2>
+      <p>
+        A Baixora não é direcionada a crianças menores de 13 anos e não coleta
+        intencionalmente dados dessa faixa etária. Se identificarmos esse tipo de coleta,
+        tomaremos medidas para eliminar os dados. Responsáveis podem entrar em contato pelo
+        canal de privacidade.
+      </p>
+
+      <h2>16. Alterações</h2>
+      <p>
+        Esta política pode ser atualizada para refletir mudanças no produto, na lei ou nos
+        serviços de terceiros. A data de atualização no topo indica a versão vigente.
+        Mudanças relevantes podem ser destacadas no site ou na extensão.
+      </p>
+
+      <h2>17. Contato</h2>
+      <p>
+        Dúvidas sobre privacidade ou solicitações de titular: {' '}
+        <a href={`mailto:${SITE.supportEmail}`}>{SITE.supportEmail}</a>. Para suporte de
+        produto, consulte a <a href="/suporte/">página de suporte</a>. Para as regras de uso,
+        consulte os <a href="/termos/">Termos de Uso</a>.
+      </p>
+    </div>
+  </div>
+</BaseLayout>

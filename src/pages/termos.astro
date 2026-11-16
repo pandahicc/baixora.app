@@ -1,0 +1,184 @@
+---
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { breadcrumbSchema } from '../lib/schema';
+import { SITE } from '../data/site';
+
+const title = 'Termos de Uso — Baixora';
+const description =
+  'Termos de uso da extensão Baixora e deste site: uso aceitável, direitos de conteúdo, serviços de terceiros e limitações.';
+const lastUpdated = '16 de novembro de 2026';
+const jsonLd = [
+  breadcrumbSchema([
+    { name: 'Início', href: '/' },
+    { name: 'Termos', href: '/termos/' },
+  ]),
+];
+---
+
+<BaseLayout title={title} description={description} canonicalPath="/termos/" jsonLd={jsonLd}>
+  <section class="border-b border-slate-200 bg-slate-50">
+    <div class="container-page py-10 sm:py-14">
+      <Breadcrumbs
+        items={[
+          { name: 'Início', href: '/' },
+          { name: 'Termos', href: '/termos/' },
+        ]}
+      />
+      <div class="mt-8 max-w-3xl">
+        <p class="text-xs font-bold uppercase tracking-[0.18em] text-brand-600">
+          Legal
+        </p>
+        <h1 class="mt-4 text-4xl font-bold tracking-tight text-slate-950 sm:text-5xl">
+          Termos de Uso
+        </h1>
+        <p class="mt-5 text-lg leading-8 text-slate-600">
+          Estes termos se aplicam à extensão Baixora e a este site. Ao instalar ou usar a
+          Baixora, você concorda com eles. Se não concordar, não use a extensão.
+        </p>
+        <p class="mt-4 text-sm text-slate-500">Última atualização: {lastUpdated}</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="container-page py-12 sm:py-16">
+    <div class="prose max-w-3xl">
+      <h2>1. Aceitação</h2>
+      <p>
+        Ao instalar, acessar ou usar a Baixora, você confirma que leu e aceita estes
+        termos. Se estiver usando a extensão em nome de uma organização, declara ter
+        autorização para aceitar estes termos por ela.
+      </p>
+
+      <h2>2. O que é a Baixora</h2>
+      <p>
+        A Baixora é uma extensão de navegador independente para baixar vídeos públicos do
+        TikTok, montar seleções em lote, salvar episódios de novelas curtas e exportar
+        metadados públicos selecionados em XLSX. A extensão não é afiliada, endossada ou
+        patrocinada pelo TikTok ou pela ByteDance.
+      </p>
+      <p>
+        A Baixora não fornece acesso a conteúdo privado, não contorna login, CAPTCHA,
+        bloqueio regional, DRM ou limites de taxa e não garante a disponibilidade de
+        qualquer vídeo.
+      </p>
+
+      <h2>3. Licença de uso</h2>
+      <p>
+        Sujeito a estes termos, a Baixora concede uma licença limitada, revogável, não
+        exclusiva e não transferível para instalar e usar a extensão em navegadores
+        compatíveis. Você não pode vender, sublicenciar, redistribuir ou explorar
+        comercialmente a extensão sem autorização, nem remover avisos de direitos.
+      </p>
+
+      <h2>4. Uso aceitável</h2>
+      <p>Você concorda em não usar a Baixora para:</p>
+      <ul>
+        <li>violar leis, regulamentos ou direitos de terceiros;</li>
+        <li>contornar login, CAPTCHA, restrições regionais, DRM ou limites técnicos;</li>
+        <li>perseguir, assediar, expor ou prejudicar pessoas;</li>
+        <li>republicar, vender ou monetizar conteúdo de terceiros sem autorização;</li>
+        <li>distribuir malware ou interferir no funcionamento do TikTok, do navegador ou de outros serviços;</li>
+        <li>usar meios automatizados para sobrecarregar serviços de terceiros.</li>
+      </ul>
+
+      <h2>5. Direitos de conteúdo</h2>
+      <p>
+        Os vídeos, imagens, textos e metadados pertencem aos seus respectivos titulares. A
+        Baixora apenas possibilita o download e a organização de conteúdo público. Baixar
+        um arquivo não transfere direitos autorais nem concede permissão de republicação,
+        uso comercial, edição ou distribuição.
+      </p>
+      <p>
+        Você é responsável por confirmar a licença, as permissões do criador e a lei
+        aplicável antes de usar qualquer arquivo. Disponibilidade técnica não é
+        autorização.
+      </p>
+
+      <h2>6. Serviços de terceiros</h2>
+      <p>
+        A Baixora depende de páginas e serviços do TikTok e é distribuída pela Chrome Web
+        Store. O uso desses serviços está sujeito aos termos e políticas dos respectivos
+        provedores. A Baixora não controla mudanças de layout, indisponibilidade, limites ou
+        decisões desses terceiros.
+      </p>
+
+      <h2>7. Premium e assinatura</h2>
+      <p>
+        Os recursos Premium são ativados dentro da extensão por uma assinatura e um token.
+        O valor, o ciclo e as condições atuais são mostrados no fluxo de assinatura da
+        extensão. Este site não exibe preços, não processa pagamentos e não recebe dados de
+        cartão.
+      </p>
+      <p>
+        O Premium amplia limites e libera fluxos; ele não altera o que o TikTok
+        disponibiliza, não garante downloads e não concede direitos sobre o conteúdo.
+        Condições de cancelamento, renovação e reembolso são as informadas no fluxo de
+        assinatura aplicável.
+      </p>
+
+      <h2>8. Disponibilidade e mudanças</h2>
+      <p>
+        A Baixora pode ser alterada, suspensa ou descontinuada a qualquer momento. Podemos
+        lançar atualizações, modificar recursos ou corrigir comportamentos. A disponibilidade
+        também depende do TikTok, do navegador, da rede e das páginas que você abre.
+      </p>
+
+      <h2>9. Isenções</h2>
+      <p>
+        Na máxima extensão permitida pela lei, a Baixora é fornecida “como está” e “conforme
+        disponível”. Não garantimos que todo vídeo será baixado, que a qualidade será
+        específica, que uma marca d’água poderá ser removida ou que o serviço ficará livre
+        de erros ou interrupções.
+      </p>
+      <p>
+        Nada nestes termos exclui garantias ou direitos que não possam ser legalmente
+        afastados, inclusive direitos do consumidor previstos na legislação brasileira
+        aplicável.
+      </p>
+
+      <h2>10. Limitação de responsabilidade</h2>
+      <p>
+        Na máxima extensão permitida pela lei, a Baixora não responde por danos indiretos,
+        incidentais, especiais ou consequenciais decorrentes do uso ou da impossibilidade de
+        uso da extensão, incluindo perda de arquivos, lucros cessantes ou uso indevido de
+        conteúdo por você ou por terceiros. Esta limitação não se aplica a dolo, culpa grave
+        ou a responsabilidades que a lei não permita limitar.
+      </p>
+
+      <h2>11. Indenização</h2>
+      <p>
+        Você concorda em manter a Baixora indene de reclamações e custos decorrentes do uso
+        indevido da extensão, da violação destes termos ou da violação de direitos de
+        terceiros, na medida permitida pela lei.
+      </p>
+
+      <h2>12. Privacidade</h2>
+      <p>
+        O tratamento de dados é descrito na{' '}
+        <a href="/privacidade/">Política de Privacidade</a>. Ela faz parte destes termos
+        para os fins de transparência sobre dados pessoais.
+      </p>
+
+      <h2>13. Alterações destes termos</h2>
+      <p>
+        Podemos atualizar estes termos para refletir mudanças no produto ou na lei. A data
+        de atualização no topo indica a versão vigente. O uso contínuo após uma alteração
+        representa aceitação da versão revisada, na medida permitida pela lei.
+      </p>
+
+      <h2>14. Lei aplicável</h2>
+      <p>
+        Estes termos são regidos pelas leis da República Federativa do Brasil. Eventuais
+        controvérsias serão resolvidas no foro competente conforme a legislação aplicável,
+        preservados os direitos do consumidor de escolher o foro previsto em lei.
+      </p>
+
+      <h2>15. Contato</h2>
+      <p>
+        Dúvidas sobre estes termos: <a href={`mailto:${SITE.supportEmail}`}>{SITE.supportEmail}</a>.
+        Para problemas de instalação ou uso, consulte a <a href="/suporte/">página de suporte</a>.
+      </p>
+    </div>
+  </div>
+</BaseLayout>

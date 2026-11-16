@@ -1,0 +1,238 @@
+---
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import CTA from '../components/CTA.astro';
+import FAQ from '../components/FAQ.astro';
+import Icon from '../components/Icon.astro';
+import InstallButton from '../components/InstallButton.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SUPPORT_FAQS } from '../data/faqs';
+import { SITE, SUPPORTED_PAGES } from '../data/site';
+import { breadcrumbSchema, faqSchema } from '../lib/schema';
+
+const title = 'Suporte e solução de problemas — Baixora';
+const description =
+  'Instalação, páginas compatíveis, falhas de download, ativação do Premium e respostas para as dúvidas mais comuns sobre a Baixora.';
+const jsonLd = [
+  breadcrumbSchema([
+    { name: 'Início', href: '/' },
+    { name: 'Suporte', href: '/suporte/' },
+  ]),
+  faqSchema(SUPPORT_FAQS),
+];
+
+const troubleshooting = [
+  [
+    'O botão de download não aparece',
+    'Confirme que a Baixora está ativada, abra uma página pública compatível de tiktok.com e atualize. Conteúdo privado ou disponível só após login está fora do escopo.',
+  ],
+  [
+    'Nenhum vídeo aparece no lote',
+    'Role a página ou carregue mais itens, confirme o tipo de página e tente de novo. Um login obrigatório, bloqueio regional ou uma página sem cards renderizados pode deixar a lista vazia.',
+  ],
+  [
+    'O download fica em 0% ou falha',
+    'URLs de mídia podem expirar, a rede pode cair ou o vídeo pode não ter fonte reproduzível. Atualize a página e tente de novo. Em um lote, as falhas são informadas sem interromper o restante.',
+  ],
+  [
+    'Salvar em ZIP ou pasta não inicia',
+    'Salvar em pasta usa a File System Access API do navegador. Inicie a ação de novo, escolha uma pasta e aprove o pedido de permissão. Fechar o aviso cancela a execução.',
+  ],
+  [
+    'O arquivo XLSX está vazio',
+    'Confirme que há vídeos selecionados antes de exportar. Uma mudança de página pode limpar a seleção. Selecione os registros novamente e exporte.',
+  ],
+  [
+    'O Premium está ativo, mas a extensão continua no Grátis',
+    'Volte à extensão, use “Atualizar token” e confirme o mesmo perfil do Chrome. Se continuar, abra a extensão novamente e fale com o suporte com a referência da assinatura.',
+  ],
+  [
+    'Faltam episódios na novela curta',
+    'Episódios podem ter restrição regional, ter sido removidos ou não estar disponíveis nos dados da página. A Baixora não carrega nem baixa o que o TikTok não expõe.',
+  ],
+  [
+    'A Baixora parou de funcionar depois de uma atualização do TikTok',
+    'O TikTok muda o layout com frequência. Verifique se há atualização da extensão, atualize a página e tente de novo. Se persistir, fale com o suporte.',
+  ],
+];
+---
+
+<BaseLayout title={title} description={description} canonicalPath="/suporte/" jsonLd={jsonLd}>
+  <section class="border-b border-slate-200 bg-slate-50">
+    <div class="container-page py-10 sm:py-14">
+      <Breadcrumbs
+        items={[
+          { name: 'Início', href: '/' },
+          { name: 'Suporte', href: '/suporte/' },
+        ]}
+      />
+      <div class="mt-8 max-w-3xl">
+        <p class="text-xs font-bold uppercase tracking-[0.18em] text-brand-600">
+          Suporte
+        </p>
+        <h1 class="mt-4 text-4xl font-bold tracking-tight text-slate-950 sm:text-5xl">
+          Suporte e solução de problemas
+        </h1>
+        <p class="mt-5 text-lg leading-8 text-slate-600">
+          Instalação, páginas compatíveis, falhas de download e ativação do Premium. A
+          Baixora é limitada de propósito a páginas públicas que você consegue abrir sem
+          conta.
+        </p>
+        <div class="mt-7">
+          <InstallButton campaign="support" label="Abrir a Chrome Web Store" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container-page grid gap-12 py-12 sm:py-16 lg:grid-cols-[minmax(0,1fr)_18rem]">
+    <div class="min-w-0">
+      <section>
+        <h2 class="text-2xl font-bold tracking-tight text-slate-950">Instale e abra a extensão</h2>
+        <ol class="mt-5 space-y-4">
+          {[
+            ['Instale a Baixora pela Chrome Web Store', 'Abra a página da Baixora e escolha Adicionar ao Chrome. Fixe a extensão se quiser acesso rápido.'],
+            ['Abra uma página pública compatível', 'Use um vídeo público, perfil, pesquisa, Explorar, hashtag, novela curta ou a página Início.'],
+            ['Use o controle de download', 'A extensão adiciona controles aos elementos compatíveis da página. Se não aparecer, atualize.'],
+            ['Escolha o fluxo', 'Baixe um vídeo, adicione itens a um lote ou abra o painel de criador ou de novela curta.'],
+          ].map(([step, text], index) => (
+            <li class="flex gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+              <span class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-600 text-sm font-bold text-white">
+                {index + 1}
+              </span>
+              <div>
+                <h3 class="text-sm font-bold text-slate-950">{step}</h3>
+                <p class="mt-1.5 text-sm leading-6 text-slate-600">{text}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section class="mt-12">
+        <h2 class="text-2xl font-bold tracking-tight text-slate-950">Páginas públicas compatíveis</h2>
+        <p class="mt-3 text-sm leading-6 text-slate-600">
+          A Baixora trabalha com o conteúdo que o TikTok disponibiliza na página pública que
+          você abre. Tipos de página compatíveis:
+        </p>
+        <ul class="mt-5 grid gap-2 sm:grid-cols-2">
+          {SUPPORTED_PAGES.map((page) => (
+            <li class="flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700">
+              <Icon name="check" class="h-4 w-4 shrink-0 text-brand-600" />
+              {page}
+            </li>
+          ))}
+        </ul>
+        <p class="mt-4 text-xs leading-5 text-slate-500">
+          A Baixora não contorna login, CAPTCHA, bloqueio regional, DRM ou limites de taxa.
+          O TikTok ainda pode exibir um login obrigatório para parte do conteúdo público, e
+          a Baixora não substitui isso.
+        </p>
+      </section>
+
+      <section class="mt-12">
+        <h2 class="text-2xl font-bold tracking-tight text-slate-950">Solução de problemas</h2>
+        <div class="mt-5 overflow-x-auto rounded-2xl border border-slate-200">
+          <table class="w-full border-collapse text-left text-sm">
+            <caption class="sr-only">Problemas comuns da Baixora e o que verificar</caption>
+            <thead class="bg-slate-50">
+              <tr>
+                <th scope="col" class="px-3 py-3 font-bold text-slate-900 sm:px-5 sm:py-3.5">Sintoma</th>
+                <th scope="col" class="px-3 py-3 font-bold text-slate-900 sm:px-5 sm:py-3.5">O que verificar</th>
+              </tr>
+            </thead>
+            <tbody>
+              {troubleshooting.map(([symptom, check]) => (
+                <tr class="border-t border-slate-100 align-top">
+                  <th scope="row" class="px-3 py-3 font-semibold text-slate-800 sm:px-5 sm:py-3.5">{symptom}</th>
+                  <td class="px-3 py-3 text-slate-600 sm:px-5 sm:py-3.5">{check}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="mt-12">
+        <h2 class="text-2xl font-bold tracking-tight text-slate-950">Premium e direitos de conteúdo</h2>
+        <div class="mt-5 grid gap-4 sm:grid-cols-2">
+          <div class="rounded-2xl border border-slate-200 bg-white p-5">
+            <h3 class="text-sm font-bold text-slate-950">Ativação do Premium</h3>
+            <p class="mt-2 text-sm leading-6 text-slate-600">
+              O Premium é uma assinatura ativada dentro da extensão com um token Premium. A
+              extensão mostra o plano e o valor atuais antes da confirmação. A Baixora não
+              processa dados de cartão neste site.
+            </p>
+          </div>
+          <div class="rounded-2xl border border-amber-200 bg-amber-50 p-5">
+            <h3 class="text-sm font-bold text-slate-950">Baixe só o que você tem direito de usar</h3>
+            <p class="mt-2 text-sm leading-6 text-slate-700">
+              Siga a lei aplicável, os termos do TikTok e as permissões do dono do conteúdo.
+              A Baixora não concede permissão e não contorna controles de acesso ou DRM.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="mt-12">
+        <h2 class="text-2xl font-bold tracking-tight text-slate-950">FAQ</h2>
+        <div class="mt-5">
+          <FAQ items={SUPPORT_FAQS} />
+        </div>
+      </section>
+
+      <section class="mt-12">
+        <h2 class="text-2xl font-bold tracking-tight text-slate-950">Contato</h2>
+        <div class="mt-4 rounded-2xl border border-slate-200 bg-slate-50 p-5">
+          <div class="flex gap-3">
+            <Icon name="mail" class="mt-0.5 h-5 w-5 shrink-0 text-brand-700" />
+            <div>
+              <p class="text-sm font-bold text-slate-950">Suporte por email</p>
+              <p class="mt-1.5 text-sm leading-6 text-slate-600">
+                Escreva para{' '}
+                <a
+                  href={`mailto:${SITE.supportEmail}`}
+                  class="font-semibold text-brand-700 hover:underline"
+                >
+                  {SITE.supportEmail}
+                </a>
+                {' '}para suporte ou dúvidas de privacidade. Inclua a versão da extensão e o
+                tipo de página. Não envie credenciais, dados de página ou tokens de
+                assinatura.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <aside class="space-y-5">
+      <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+        <h2 class="text-sm font-bold text-slate-950">Links rápidos</h2>
+        <ul class="mt-3 space-y-2 text-sm">
+          <li><a href="/recursos/baixar-em-lote/" class="text-slate-600 hover:text-brand-700">Download em lote</a></li>
+          <li><a href="/recursos/baixar-videos-tiktok/" class="text-slate-600 hover:text-brand-700">Download de um vídeo</a></li>
+          <li><a href="/recursos/videos-de-criadores/" class="text-slate-600 hover:text-brand-700">Vídeos de criadores</a></li>
+          <li><a href="/recursos/novelas-curtas/" class="text-slate-600 hover:text-brand-700">Novelas curtas</a></li>
+          <li><a href="/recursos/exportar-xlsx/" class="text-slate-600 hover:text-brand-700">Exportação XLSX</a></li>
+          <li><a href="/guias/" class="text-slate-600 hover:text-brand-700">Guias</a></li>
+          <li><a href="/privacidade/" class="text-slate-600 hover:text-brand-700">Política de Privacidade</a></li>
+        </ul>
+      </div>
+      <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+        <h2 class="text-sm font-bold text-slate-950">Versão</h2>
+        <p class="mt-2 text-sm text-slate-600">Build atual: {SITE.version}</p>
+        <p class="mt-2 text-xs leading-5 text-slate-500">
+          A extensão está listada na Chrome Web Store como {SITE.storeTitle}.
+        </p>
+      </div>
+    </aside>
+  </div>
+
+  <CTA
+    campaign="support-final"
+    title="Ainda travado? Comece pelo tipo de página."
+    description="A maioria dos problemas vem de uma página incompatível, de uma URL de mídia expirada ou da ausência de fonte reproduzível. Atualize, confirme a página e consulte o FAQ."
+    secondaryHref="/guias/"
+    secondaryLabel="Ver os guias"
+  />
+</BaseLayout>
