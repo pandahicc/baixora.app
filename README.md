@@ -37,6 +37,7 @@ npm run check                        # link, metadata, JSON-LD, sitemap and asse
 npm run verify                       # build + check
 npm run preview                      # preview the production build
 npm run icons                        # regenerate public/images/brand/* from src/assets
+npm run screenshots                  # convert src/assets/screenshots/*.png to WebP
 npm run og                           # regenerate public/og/baixora-og.png
 ```
 
@@ -73,6 +74,7 @@ does not configure DNS or deploy the site.
 
 ```text
 src/
+  assets/               Brand icon and screenshots/ PNG sources (not shipped)
   components/           Shared UI (header, footer, CTA, FAQ, SEO, product shots, icons)
   content/guides/       5 pt-BR MDX guides
   content.config.ts     Guides collection schema
@@ -84,13 +86,14 @@ src/
   styles/global.css     Tailwind theme, prose, placeholders, print/reduced-motion
 public/
   images/brand/         Baixora icons generated from src/assets/baixora-icon-128.png
-  images/screenshots/   Product captures
+  images/screenshots/   Generated WebP product captures
   og/                   Default 1200×630 Open Graph image
   _headers              Edge security/cache headers
   site.webmanifest
 docs/screenshot-guide.md
 scripts/check-site.mjs
 scripts/generate-icons.mjs
+scripts/generate-screenshots.mjs
 scripts/generate-og.mjs
 ```
 
@@ -148,8 +151,11 @@ Rules:
   downloads, official affiliation, or a fixed price.
 - Do not display Chrome Web Store user counts or ratings.
 - Every download page carries a rights notice. Availability is not authorization.
-- The five screenshots currently show the English extension UI. Captions must note that
-  the interface follows the browser language and is available in pt-BR.
+- The five screenshots are pt-BR captures with marketing labels. The PNG sources live
+  in `src/assets/screenshots/`; replace one and run `npm run screenshots` to regenerate
+  the shipped WebP files.
+- Keep the real dimensions in `src/data/screenshots.ts`: four captures are 1280×800 and
+  `creator-profile` is 1138×785.
 
 ## Privacy and permissions
 
@@ -179,8 +185,8 @@ npx wrangler deploy
 ## Known open items
 
 - The domain is reserved but not deployed or DNS-configured here.
-- The screenshots show the English extension UI. Replace them with pt-BR captures when
-  available, keeping the same filenames and dimensions.
+- The screenshots ship as WebP from `src/assets/screenshots/`; after replacing a source
+  PNG, run `npm run screenshots` and keep the registry dimensions in sync.
 - The legal pages are a product-specific template adapted to LGPD, not legal advice.
   Have them reviewed by Brazilian counsel before launch.
 - GA4 (`G-08VK2P35MW`) loads immediately in production; no consent banner or Consent

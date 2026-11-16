@@ -13,6 +13,7 @@
     "verify": "npm run build && npm run check",
     "og": "node scripts/generate-og.mjs",
     "icons": "node scripts/generate-icons.mjs",
+    "screenshots": "node scripts/generate-screenshots.mjs",
     "astro": "astro"
   },
   "dependencies": {

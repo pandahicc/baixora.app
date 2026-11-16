@@ -9,19 +9,19 @@ export interface ScreenshotDefinition {
 }
 
 /**
- * As cinco capturas atuais do produto. Para substituir uma, mantenha o mesmo
- * nome base e as dimensões (ou atualize width/height aqui) e gere o build. Se o
- * arquivo não existir, o ProductShot mostra um placeholder rotulado.
+ * As cinco capturas atuais do produto, em pt-BR. Os PNGs de origem ficam em
+ * src/assets/screenshots/ e são convertidos para WebP por `npm run screenshots`.
  *
- * As capturas mostram a interface em inglês. A extensão segue o idioma do
- * navegador e tem interface em pt-BR; as legendas devem deixar isso claro.
+ * Para substituir uma captura, mantenha o mesmo nome base, atualize width/height
+ * aqui se as dimensões mudarem e rode `npm run screenshots`. Se o arquivo WebP
+ * não existir, o ProductShot mostra um placeholder rotulado.
  */
 export const SCREENSHOTS = {
   'single-download': {
     base: '/images/screenshots/single-download',
     title: 'Download de um vídeo',
     description:
-      'O controle de download da extensão em um vídeo público do TikTok na aba Para você.',
+      'O controle de download em um vídeo público do TikTok, com o rótulo “Download único”.',
     alt: 'Controle de download da Baixora em uma página pública de vídeo do TikTok.',
     width: 1280,
     height: 800,
@@ -30,8 +30,8 @@ export const SCREENSHOTS = {
     base: '/images/screenshots/explore-list',
     title: 'Controles na página Explorar',
     description:
-      'Controles de download nos cards públicos do Explorar para salvar vídeos individuais.',
-    alt: 'Controles de download da Baixora em uma página pública do Explorar.',
+      'Controles de download nos cards públicos do Explorar, com o rótulo “Lista de exploração”.',
+    alt: 'Controles de download da Baixora em cards do Explorar.',
     width: 1280,
     height: 800,
   },
@@ -39,8 +39,8 @@ export const SCREENSHOTS = {
     base: '/images/screenshots/search-list',
     title: 'Adicionar e baixar na pesquisa',
     description:
-      'Controles de adicionar e baixar nos resultados de pesquisa para montar uma seleção em lote.',
-    alt: 'Controles de adicionar e baixar da Baixora em uma página de resultados de pesquisa do TikTok.',
+      'Controles de adicionar e baixar nos resultados de pesquisa, com o rótulo “Lista de pesquisa”.',
+    alt: 'Controles de adicionar e baixar da Baixora nos resultados de pesquisa do TikTok.',
     width: 1280,
     height: 800,
   },
@@ -48,17 +48,17 @@ export const SCREENSHOTS = {
     base: '/images/screenshots/creator-profile',
     title: 'Entrada de download no perfil',
     description:
-      'O ponto de entrada de download da extensão em um perfil público de criador.',
-    alt: 'Botão de download da Baixora em um perfil público de criador do TikTok.',
-    width: 1280,
-    height: 800,
+      'O botão “Baixar” no perfil público de um criador do TikTok.',
+    alt: 'Botão Baixar da Baixora no perfil público de um criador do TikTok.',
+    width: 1138,
+    height: 785,
   },
   'creator-panel': {
     base: '/images/screenshots/creator-panel',
     title: 'Filtros e ações em lote do criador',
     description:
-      'O painel do criador com canais, filtros, seleção, exportação e ações de download.',
-    alt: 'Painel de criador da Baixora com filtros, exportação e download em lote.',
+      'O painel do criador com filtros, seleção, exportação e salvamento em lote, com o rótulo “Painel do criador”.',
+    alt: 'Painel do criador da Baixora com filtros, exportação e download em lote.',
     width: 1280,
     height: 800,
   },

@@ -407,7 +407,7 @@ const screenshotFiles = [
   ['single-download.webp', 1280, 800],
   ['explore-list.webp', 1280, 800],
   ['search-list.webp', 1280, 800],
-  ['creator-profile.webp', 1280, 800],
+  ['creator-profile.webp', 1138, 785],
   ['creator-panel.webp', 1280, 800],
 ];
 for (const [name, width, height] of screenshotFiles) {
@@ -421,6 +421,17 @@ for (const [name, width, height] of screenshotFiles) {
     errors.push(
       `${name} is ${meta.width}×${meta.height}; expected ${width}×${height}`,
     );
+  }
+}
+
+const screenshotDir = path.join(ROOT, 'public', 'images', 'screenshots');
+if (existsSync(screenshotDir)) {
+  for (const entry of await readdir(screenshotDir)) {
+    if (entry.endsWith('.png')) {
+      errors.push(
+        `public screenshots must ship as WebP; found ${entry} (source PNGs belong in src/assets/screenshots/)`,
+      );
+    }
   }
 }
 
