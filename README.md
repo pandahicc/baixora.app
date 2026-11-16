@@ -5,6 +5,7 @@ TikTok videos in bulk, saving single videos, collecting creator videos and short
 episodes, and exporting selected metadata to XLSX.
 
 - Production domain: `https://baixora.app`
+- Repository: `git@github.com:pandahicc/baixora.app.git`
 - Chrome Web Store: [Video Downloader for TikTok](https://chromewebstore.google.com/detail/video-downloader-for-tikt/gjhfeagkgkfmhbgladfbimflnmiedjem?hl=pt_BR) (pt-BR listing: **Baixador de Vídeos para o TikTok**)
 - Content language: Brazilian Portuguese (`pt-BR`)
 - Extension version referenced by the site: `1.3.3`
@@ -20,7 +21,7 @@ episodes, and exporting selected metadata to XLSX.
 | Styling | Tailwind CSS 4.3.x via `@tailwindcss/vite` |
 | Content | Astro Content Collections + MDX (`@astrojs/mdx` 8.x) |
 | Hosting | Cloudflare Workers/Pages or any static host |
-| Client JS | JSON-LD plus optional GA4 via `PUBLIC_GA_MEASUREMENT_ID`; no framework client JS |
+| Client JS | JSON-LD plus GA4 (`G-08VK2P35MW`) in production; no framework client JS |
 | Images | Sharp for icon and Open Graph generation |
 
 The site has no backend, database, CMS, user accounts, contact form, or URL-paste
@@ -43,14 +44,16 @@ The project requires Node 22.23.4 or newer. `.nvmrc` pins CI to Node 22.
 
 ## Analytics
 
-GA4 is **disabled by default**. Set `PUBLIC_GA_MEASUREMENT_ID` to enable it for a
-production build. No measurement ID is hardcoded in the repository.
+Production builds enable Google Analytics 4 with `G-08VK2P35MW` by default. The site
+loads the GA tag from `googletagmanager.com` on every page, with IP anonymization.
 
-- The site loads GA only when an ID is configured.
-- `npm run dev` does not load GA.
+- Override the ID with `PUBLIC_GA_MEASUREMENT_ID`.
+- Set `PUBLIC_GA_MEASUREMENT_ID=` (empty) to disable GA for a build.
+- `npm run dev` does not load GA; the default ID is only applied in production.
 - The extension itself contains no analytics or telemetry.
-- If GA is enabled, review the Privacy Policy and consider Consent Mode or a cookie
-  banner for the relevant jurisdictions.
+- The site loads GA immediately and does not include a cookie-consent banner. If the
+  applicable jurisdiction requires prior consent, add Consent Mode or a banner before
+  relying on analytics data.
 
 ## Domain
 
@@ -180,5 +183,6 @@ npx wrangler deploy
   available, keeping the same filenames and dimensions.
 - The legal pages are a product-specific template adapted to LGPD, not legal advice.
   Have them reviewed by Brazilian counsel before launch.
-- GA4 is disabled by default; no consent banner is included.
+- GA4 (`G-08VK2P35MW`) loads immediately in production; no consent banner or Consent
+  Mode is configured.
 - Plan prices and current limits are shown in the extension, not on this site.

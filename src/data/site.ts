@@ -1,6 +1,7 @@
 import siteConfig from '../../site.config.json';
 
 const envGaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
+const DEFAULT_GA_MEASUREMENT_ID = 'G-08VK2P35MW';
 
 export const SITE = {
   url: siteConfig.url,
@@ -17,7 +18,9 @@ export const SITE = {
   supportEmail: 'pandahi.cc@gmail.com',
   interfaceLanguages: 23,
   freeDailyLimit: 10,
-  gaMeasurementId: envGaMeasurementId ?? '',
+  gaMeasurementId:
+    envGaMeasurementId ??
+    (import.meta.env.PROD ? DEFAULT_GA_MEASUREMENT_ID : ''),
 };
 
 export const NAV = [

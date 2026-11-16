@@ -39,8 +39,8 @@ const STALE_ROUTES = [
   '/changelog/',
 ];
 
-function readEnvFile() {
-  const envPath = path.join(ROOT, '.env');
+function readEnvFile(fileName = '.env') {
+  const envPath = path.join(ROOT, fileName);
   if (!existsSync(envPath)) return {};
   const text = readFileSync(envPath, 'utf8');
   const result = {};
@@ -53,11 +53,15 @@ function readEnvFile() {
   return result;
 }
 
-const dotenv = readEnvFile();
+const dotenv = {
+  ...readEnvFile('.env'),
+  ...readEnvFile('.env.production'),
+};
+const DEFAULT_GA_ID = 'G-08VK2P35MW';
 const GA_ID =
   process.env.PUBLIC_GA_MEASUREMENT_ID ??
   dotenv.PUBLIC_GA_MEASUREMENT_ID ??
-  '';
+  DEFAULT_GA_ID;
 const GA_ENABLED = GA_ID.trim() !== '';
 
 const errors = [];
